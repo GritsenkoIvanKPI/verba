@@ -184,7 +184,7 @@
   summary{ cursor: pointer; list-style: none; }
 
   /* lang switch */
-  .lang-btn{ transition: color .3s ease, opacity .3s ease; opacity: .45; }
+  .lang-btn{ color: #f7f2e7; transition: color .3s ease, opacity .3s ease; opacity: .45; }
   .lang-btn.active{ opacity: 1; }
   .lang-btn:hover{ opacity: 0.8; }
 
@@ -226,10 +226,15 @@
   .lang-flag svg{ display: block; }
 
   /* mobile menu */
-  #mobile-menu{ transition: opacity .5s var(--ease-spring), visibility .5s var(--ease-spring); }
+  #mobile-menu{
+    background: rgba(11,10,9,0.98);
+    transition: opacity .5s var(--ease-spring), visibility .5s var(--ease-spring);
+  }
   #mobile-menu.closed{ opacity: 0; visibility: hidden; pointer-events: none; }
   #mobile-menu .mm-item{ transform: translateY(14px); opacity: 0; transition: transform .6s var(--ease-spring), opacity .6s var(--ease-spring); }
   #mobile-menu:not(.closed) .mm-item{ transform: translateY(0); opacity: 1; }
+  .nav-mobile{ color: #f7f2e7; transition: color .3s ease, opacity .3s ease; }
+  .nav-mobile:hover{ color: #c79a4f; }
 
   /* testimonial play button */
   .play-btn{
