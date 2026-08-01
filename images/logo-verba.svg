@@ -1,0 +1,33 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 480 130" fill="none">
+  <defs>
+    <linearGradient id="verbaGold" x1="0" y1="0" x2="480" y2="130" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#e8c584"/>
+      <stop offset="0.45" stop-color="#c79a4f"/>
+      <stop offset="0.55" stop-color="#b8863c"/>
+      <stop offset="1" stop-color="#dcb46e"/>
+    </linearGradient>
+  </defs>
+
+  <text x="240" y="62" text-anchor="middle" font-family="'Cormorant Garamond', 'Playfair Display', serif" font-size="64" font-weight="600" letter-spacing="14" fill="url(#verbaGold)">VERBA</text>
+
+  <!-- flourish ornament -->
+  <g fill="none" stroke="url(#verbaGold)" stroke-width="1.6" stroke-linecap="round">
+    <!-- right half -->
+    <path d="M240,80 C247,88 258,90 268,86 C278,82 280,72 272,68 C266,65 260,68 261,74 C262,79 268,80 272,76"/>
+    <path d="M272,76 C282,68 296,68 305,76 C312,82 310,92 300,94 C293,95.5 288,91 290,85 C292,80 298,79 301,83"/>
+    <path d="M301,83 C312,90 326,90 336,82"/>
+    <path d="M336,82 C342,78 342,72 337,70 C333,68.4 330,71 331,75"/>
+  </g>
+  <g fill="none" stroke="url(#verbaGold)" stroke-width="1.6" stroke-linecap="round">
+    <!-- left half (mirrored) -->
+    <path d="M240,80 C233,88 222,90 212,86 C202,82 200,72 208,68 C214,65 220,68 219,74 C218,79 212,80 208,76"/>
+    <path d="M208,76 C198,68 184,68 175,76 C168,82 170,92 180,94 C187,95.5 192,91 190,85 C188,80 182,79 179,83"/>
+    <path d="M179,83 C168,90 154,90 144,82"/>
+    <path d="M144,82 C138,78 138,72 143,70 C147,68.4 150,71 149,75"/>
+  </g>
+
+  <!-- central pendant -->
+  <path d="M240,80 C240,88 240,94 240,98" stroke="url(#verbaGold)" stroke-width="1.6" stroke-linecap="round" fill="none"/>
+  <circle cx="240" cy="105" r="5.5" fill="url(#verbaGold)"/>
+  <circle cx="240" cy="105" r="5.5" stroke="#7a5a24" stroke-width="0.6"/>
+</svg>

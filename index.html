@@ -1,0 +1,1171 @@
+<!doctype html>
+<html lang="uk">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>VERBA — Індивідуальний пошиття одягу</title>
+<meta name="description" content="VERBA — ательє індивідуального пошиття Тетяни Верби. Понад 20 років досвіду. Україна · Німеччина.">
+<link rel="icon" type="image/svg+xml" href="images/logo-verba.svg">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,500&family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<script src="https://cdn.tailwindcss.com"></script>
+<script>
+  tailwind.config = {
+    theme: {
+      extend: {
+        colors: {
+          ink: '#0b0a09',
+          charcoal: '#151311',
+          cocoa: '#211d19',
+          cream: '#f7f2e7',
+          parchment: '#efe7d6',
+          gold: '#c79a4f',
+          goldlight: '#e8c584',
+          sky: '#bfe0ee',
+          skydeep: '#8fc2d9',
+          butter: '#8f6a10',
+          butterdeep: '#7a5a0d',
+        },
+        fontFamily: {
+          serif: ['"Cormorant Garamond"', 'serif'],
+          sans: ['Manrope', 'sans-serif'],
+        },
+      },
+    },
+  };
+</script>
+<style>
+  :root{
+    --ease-spring: cubic-bezier(0.16, 1, 0.3, 1);
+  }
+  *{ box-sizing: border-box; }
+  html{ scroll-behavior: smooth; }
+
+  /* critical header styles, independent of the Tailwind CDN's JIT compile step,
+     so the fixed nav renders correctly on first paint rather than flashing unstyled */
+  header{ position: fixed; top: 0; left: 0; right: 0; z-index: 50; }
+  header nav{
+    background: rgba(11,10,9,0.4);
+    -webkit-backdrop-filter: blur(12px);
+    backdrop-filter: blur(12px);
+    border: 1px solid rgba(247,242,231,0.1);
+    border-radius: 999px;
+  }
+  body{
+    background: #ffffff;
+    color: #211d19;
+    font-family: 'Manrope', sans-serif;
+    -webkit-font-smoothing: antialiased;
+    overflow-x: hidden;
+  }
+  h1,h2,h3,.font-display{
+    font-family: 'Cormorant Garamond', serif;
+    letter-spacing: -0.01em;
+  }
+  .tracking-label{ letter-spacing: 0.22em; }
+
+  /* grain texture overlay */
+  .grain{
+    position: fixed; inset: 0; pointer-events: none; z-index: 60;
+    opacity: 0.035; mix-blend-mode: multiply;
+  }
+
+  /* reveal-on-scroll */
+  .reveal{ opacity: 0; transform: translateY(28px); transition: opacity 0.9s var(--ease-spring), transform 0.9s var(--ease-spring); }
+  .reveal.visible{ opacity: 1; transform: translateY(0); }
+  .reveal-delay-1.visible{ transition-delay: .08s; }
+  .reveal-delay-2.visible{ transition-delay: .16s; }
+  .reveal-delay-3.visible{ transition-delay: .24s; }
+  .reveal-delay-4.visible{ transition-delay: .32s; }
+
+  /* pill button — blue by default, yellow fill slides in on hover */
+  .btn-pill, .btn-compound{
+    position: relative; overflow: hidden; isolation: isolate;
+    display: inline-flex; align-items: center; justify-content: center; gap: .5rem;
+    border-radius: 999px; padding: 1.05rem 2.15rem; font-weight: 600; font-size: .95rem;
+    background: #3d7a9e; color: #f7f2e7; border: 1.5px solid rgba(247,242,231,0.4);
+  }
+  .btn-pill::before, .btn-compound::before{
+    content: ''; position: absolute; inset: -2px; z-index: -1;
+    background: #8f6a10;
+    border: 1.5px solid rgba(247,242,231,0.4);
+    transform: translate3d(105%, 0, 0);
+    transition: transform .55s var(--ease-spring);
+    border-radius: inherit;
+  }
+  .btn-pill > *, .btn-compound > *{ position: relative; }
+  .btn-pill:hover::before, .btn-compound:hover::before{ transform: translate3d(0, 0, 0); }
+  .btn-pill:focus-visible, .btn-compound:focus-visible{ outline: 2px solid #f7f2e7; outline-offset: 3px; }
+
+  /* secondary (ghost) button — transparent, outlined, muted hover fill */
+  .btn-pill.btn-ghost, .btn-compound.btn-ghost{ background: transparent; }
+  .btn-pill.btn-ghost::before, .btn-compound.btn-ghost::before{ background: rgba(247,242,231,0.16); }
+  .btn-pill.btn-ghost:hover, .btn-compound.btn-ghost:hover{ border-color: rgba(247,242,231,0.75); }
+
+  /* compound pill: label + accent icon bubble */
+  .btn-compound{ gap: 1rem; padding: .5rem .5rem .5rem 1.75rem; }
+  .btn-compound-icon{
+    position: relative;
+    width: 2.75rem; height: 2.75rem; border-radius: 999px; flex-shrink: 0;
+    background: #f7f2e7;
+    display: flex; align-items: center; justify-content: center;
+  }
+
+  /* circular arrow icon */
+  .icon-circle{
+    width: 3.6rem; height: 3.6rem; border-radius: 999px; border: 1px solid rgba(23,19,16,0.18);
+    display: flex; align-items: center; justify-content: center; flex-shrink: 0;
+    transition: transform .5s var(--ease-spring), border-color .4s ease, background-color .4s ease;
+  }
+  .group:hover .icon-circle, .icon-circle:hover{
+    transform: rotate(45deg);
+    border-color: #c79a4f;
+    background: rgba(199,154,79,0.08);
+  }
+
+  .hairline{ height: 1px; background: linear-gradient(90deg, rgba(23,19,16,0), rgba(23,19,16,0.16), rgba(23,19,16,0)); }
+  .hairline-dark{ height: 1px; background: rgba(11,10,9,0.14); }
+
+  /* card surface */
+  .surface{
+    background: #fffdf8;
+    border: 1px solid rgba(23,19,16,0.08);
+  }
+  .surface-elevated{
+    background: #fffefb;
+    border: 1px solid rgba(23,19,16,0.09);
+    box-shadow: 0 30px 60px -30px rgba(33,29,25,0.25);
+  }
+
+  .img-treat{ position: relative; overflow: hidden; }
+  .img-treat img{ transition: transform 1.1s var(--ease-spring); }
+  .img-treat:hover img{ transform: scale(1.05); }
+  .img-overlay{
+    position: absolute; inset: 0;
+    background: linear-gradient(to top, rgba(11,10,9,0.55), rgba(11,10,9,0) 45%);
+  }
+  .img-tint{
+    position: absolute; inset: 0;
+    background: linear-gradient(160deg, rgba(199,154,79,0.16), rgba(191,224,238,0.08));
+    mix-blend-mode: multiply;
+  }
+
+  /* nav link underline */
+  .nav-link{ position: relative; }
+  .nav-link::after{
+    content: ''; position: absolute; left: 0; right: 0; bottom: -4px; height: 1px;
+    background: currentColor; transform: scaleX(0); transform-origin: right; transition: transform .45s var(--ease-spring);
+  }
+  .nav-link:hover::after{ transform: scaleX(1); transform-origin: left; }
+
+  input, textarea{
+    background: rgba(11,10,9,0.06);
+    border: 1px solid rgba(11,10,9,0.22);
+    transition: border-color .3s ease, background-color .3s ease;
+  }
+  input::placeholder, textarea::placeholder{ color: rgba(11,10,9,0.45); }
+  input:focus, textarea:focus{
+    outline: none; border-color: #171310; background: rgba(11,10,9,0.1);
+  }
+
+  .field-dark{
+    background: rgba(247,242,231,0.04);
+    border: 1px solid rgba(247,242,231,0.18);
+  }
+  .field-dark::placeholder{ color: rgba(247,242,231,0.35); }
+  .field-dark:focus{ outline: none; border-color: #c79a4f; background: rgba(247,242,231,0.06); }
+
+  /* FAQ accordion */
+  .faq-item[open] .faq-chevron{ transform: rotate(45deg); }
+  .faq-chevron{ transition: transform .4s var(--ease-spring); }
+  .faq-answer{ overflow: hidden; }
+  summary::-webkit-details-marker{ display: none; }
+  summary{ cursor: pointer; list-style: none; }
+
+  /* lang switch */
+  .lang-btn{ transition: color .3s ease, opacity .3s ease; opacity: .45; }
+  .lang-btn.active{ opacity: 1; }
+  .lang-btn:hover{ opacity: 0.8; }
+
+  /* lang dropdown */
+  .lang-panel{
+    background: #171310;
+    border: 1px solid rgba(247,242,231,0.12);
+    box-shadow: 0 24px 48px -20px rgba(0,0,0,0.55);
+    transform-origin: top right;
+    transition: opacity .35s var(--ease-spring), transform .35s var(--ease-spring), visibility .35s;
+    z-index: 60;
+  }
+  .lang-panel.closed{ opacity: 0; transform: scale(0.94) translateY(-6px); visibility: hidden; pointer-events: none; }
+  .lang-option{
+    display: flex; align-items: center; gap: .75rem;
+    padding: .8rem 1.1rem; cursor: pointer;
+    transition: background-color .25s ease;
+  }
+  .lang-option:hover{ background: rgba(247,242,231,0.07); }
+  .lang-checkbox{
+    position: relative;
+    width: 1.05rem; height: 1.05rem; border-radius: 5px; flex-shrink: 0;
+    border: 1.5px solid rgba(247,242,231,0.35);
+    transition: border-color .25s ease, background-color .25s ease;
+  }
+  .lang-checkbox::after{
+    content: ''; position: absolute; left: 3px; top: 1px;
+    width: 5px; height: 8px;
+    border-right: 1.5px solid #171310; border-bottom: 1.5px solid #171310;
+    transform: rotate(40deg); opacity: 0; transition: opacity .2s ease;
+  }
+  .lang-option.active .lang-checkbox{ background: #c79a4f; border-color: #c79a4f; }
+  .lang-option.active .lang-checkbox::after{ opacity: 1; }
+  .lang-flag{
+    display: inline-block; width: 1.5rem; height: 1.1rem; flex-shrink: 0;
+    border-radius: 3px; overflow: hidden;
+    box-shadow: 0 0 0 1px rgba(247,242,231,0.18);
+  }
+  .lang-flag svg{ display: block; }
+
+  /* mobile menu */
+  #mobile-menu{ transition: opacity .5s var(--ease-spring), visibility .5s var(--ease-spring); }
+  #mobile-menu.closed{ opacity: 0; visibility: hidden; pointer-events: none; }
+  #mobile-menu .mm-item{ transform: translateY(14px); opacity: 0; transition: transform .6s var(--ease-spring), opacity .6s var(--ease-spring); }
+  #mobile-menu:not(.closed) .mm-item{ transform: translateY(0); opacity: 1; }
+
+  /* testimonial play button */
+  .play-btn{
+    width: 4.5rem; height: 4.5rem; border-radius: 999px;
+    background: rgba(247,242,231,0.92);
+    display: flex; align-items: center; justify-content: center;
+    transition: transform .5s var(--ease-spring), background-color .4s ease;
+    box-shadow: 0 20px 40px -16px rgba(0,0,0,0.55);
+  }
+  .group:hover .play-btn{ transform: scale(1.1); background: #f7f2e7; }
+
+  ::selection{ background: #c79a4f; color: #0b0a09; }
+
+  @media (max-width: 767px){
+    .reveal{ transform: translateY(18px); }
+    .btn-pill, .btn-compound{ width: 100%; }
+  }
+</style>
+</head>
+<body class="bg-white">
+
+<svg class="grain" width="100%" height="100%">
+  <filter id="noiseFilter">
+    <feTurbulence type="fractalNoise" baseFrequency="0.85" numOctaves="2" stitchTiles="stitch"></feTurbulence>
+    <feColorMatrix type="matrix" values="0 0 0 0 0  0 0 0 0 0  0 0 0 0 0  0 0 0 0.5 0"></feColorMatrix>
+  </filter>
+  <rect width="100%" height="100%" filter="url(#noiseFilter)"></rect>
+</svg>
+
+<!-- ============ HEADER ============ -->
+<header class="fixed top-0 inset-x-0 z-50">
+  <div class="mx-auto max-w-[1400px] px-6 md:px-10 pt-5 md:pt-7 flex items-center justify-between">
+    <a href="#hero" class="flex items-center gap-2 shrink-0" aria-label="VERBA">
+      <img src="images/logo-verba.svg" alt="VERBA" class="h-9 md:h-11 w-auto drop-shadow-[0_2px_10px_rgba(0,0,0,0.5)]">
+    </a>
+
+    <nav class="hidden lg:flex items-center gap-9 text-[15px] font-medium text-cream/90 bg-ink/40 backdrop-blur-md px-8 py-3.5 rounded-full border border-cream/10">
+      <a href="#services" class="nav-link" data-i18n="nav.services">Послуги</a>
+      <a href="#portfolio" class="nav-link" data-i18n="nav.portfolio">Портфоліо</a>
+      <a href="#about" class="nav-link" data-i18n="nav.about">Про нас</a>
+      <a href="#process" class="nav-link" data-i18n="nav.process">Процес</a>
+      <a href="#testimonials" class="nav-link" data-i18n="nav.testimonials">Відгуки</a>
+      <a href="#contact" class="nav-link" data-i18n="nav.contact">Контакти</a>
+    </nav>
+
+    <div class="flex items-center gap-4 md:gap-5">
+      <div class="hidden sm:block relative" id="lang-dropdown">
+        <button id="lang-trigger" class="flex items-center gap-2 text-sm font-semibold text-cream/90 hover:text-cream transition-colors" aria-haspopup="listbox" aria-expanded="false">
+          <span id="lang-trigger-flag" class="lang-flag"></span>
+          <svg id="lang-chevron" width="10" height="6" viewBox="0 0 10 6" fill="none" class="transition-transform duration-300"><path d="M1 1L5 5L9 1" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"/></svg>
+        </button>
+        <div id="lang-panel" class="lang-panel closed absolute right-0 top-full mt-3 w-48 rounded-2xl overflow-hidden" role="listbox">
+          <div class="lang-option active" data-lang-option="uk" role="option" aria-selected="true">
+            <span class="lang-checkbox"></span>
+            <span class="lang-flag" aria-label="Українська" role="img"><svg viewBox="0 0 20 14" width="100%" height="100%" preserveAspectRatio="none"><rect width="20" height="7" fill="#005BBB"/><rect width="20" height="7" y="7" fill="#FFD500"/></svg></span>
+          </div>
+          <div class="lang-option" data-lang-option="en" role="option" aria-selected="false">
+            <span class="lang-checkbox"></span>
+            <span class="lang-flag" aria-label="English" role="img"><svg viewBox="0 0 20 14" width="100%" height="100%" preserveAspectRatio="none"><rect width="20" height="14" fill="#00247d"/><polygon points="0,0 3,0 20,12.5 20,14 17,14 0,1.5" fill="#fff"/><polygon points="20,0 17,0 0,12.5 0,14 3,14 20,1.5" fill="#fff"/><polygon points="0,0 1.3,0 20,13.2 20,14 18.7,14 0,0.8" fill="#cf142b"/><polygon points="20,0 18.7,0 0,13.2 0,14 1.3,14 20,0.8" fill="#cf142b"/><rect x="8" width="4" height="14" fill="#fff"/><rect y="5" width="20" height="4" fill="#fff"/><rect x="8.8" width="2.4" height="14" fill="#cf142b"/><rect y="5.8" width="20" height="2.4" fill="#cf142b"/></svg></span>
+          </div>
+          <div class="lang-option" data-lang-option="de" role="option" aria-selected="false">
+            <span class="lang-checkbox"></span>
+            <span class="lang-flag" aria-label="Deutsch" role="img"><svg viewBox="0 0 20 14" width="100%" height="100%" preserveAspectRatio="none"><rect width="20" height="4.67" fill="#000"/><rect width="20" height="4.67" y="4.67" fill="#DD0000"/><rect width="20" height="4.67" y="9.33" fill="#FFCE00"/></svg></span>
+          </div>
+        </div>
+      </div>
+      <a href="#feedback" class="btn-pill btn-primary hidden md:inline-flex" data-i18n="nav.cta">Записатись</a>
+      <button id="menu-toggle" class="lg:hidden w-11 h-11 rounded-full border border-cream/25 flex items-center justify-center shrink-0" aria-label="Menu">
+        <svg width="18" height="12" viewBox="0 0 18 12" fill="none"><path d="M0 1H18" stroke="#f7f2e7" stroke-width="1.4"/><path d="M0 11H18" stroke="#f7f2e7" stroke-width="1.4"/></svg>
+      </button>
+    </div>
+  </div>
+</header>
+
+<!-- mobile menu overlay -->
+<div id="mobile-menu" class="closed fixed inset-0 z-[70] bg-ink/98 backdrop-blur-xl flex flex-col">
+  <div class="flex items-center justify-between px-6 pt-5">
+    <img src="images/logo-verba.svg" alt="VERBA" class="h-9">
+    <button id="menu-close" class="w-11 h-11 rounded-full border border-cream/25 flex items-center justify-center" aria-label="Close">
+      <svg width="16" height="16" viewBox="0 0 16 16"><path d="M1 1L15 15M15 1L1 15" stroke="#f7f2e7" stroke-width="1.4"/></svg>
+    </button>
+  </div>
+  <nav class="flex-1 flex flex-col items-center justify-center gap-7 text-3xl font-display">
+    <a href="#services" class="mm-item nav-mobile" data-i18n="nav.services">Послуги</a>
+    <a href="#portfolio" class="mm-item nav-mobile" data-i18n="nav.portfolio">Портфоліо</a>
+    <a href="#about" class="mm-item nav-mobile" data-i18n="nav.about">Про нас</a>
+    <a href="#process" class="mm-item nav-mobile" data-i18n="nav.process">Процес</a>
+    <a href="#testimonials" class="mm-item nav-mobile" data-i18n="nav.testimonials">Відгуки</a>
+    <a href="#faq" class="mm-item nav-mobile" data-i18n="nav.faq">FAQ</a>
+    <a href="#contact" class="mm-item nav-mobile" data-i18n="nav.contact">Контакти</a>
+  </nav>
+  <div class="mm-item flex items-center justify-center gap-3 pb-10 text-base font-semibold">
+    <button class="lang-btn active" data-lang-btn="uk">UA</button>
+    <span class="opacity-30">/</span>
+    <button class="lang-btn" data-lang-btn="en">EN</button>
+    <span class="opacity-30">/</span>
+    <button class="lang-btn" data-lang-btn="de">DE</button>
+  </div>
+</div>
+
+<main>
+
+<!-- ============ HERO ============ -->
+<section id="hero" class="relative min-h-[100svh] flex items-end overflow-hidden">
+  <div class="absolute inset-0">
+    <img src="images/hero-bg.jpg" alt="" class="w-full h-full object-cover">
+    <div class="absolute inset-0 bg-gradient-to-t from-ink via-ink/25 to-ink/55"></div>
+    <div class="absolute inset-0 bg-gradient-to-b from-ink/70 via-transparent to-transparent h-1/3"></div>
+  </div>
+
+  <div class="relative z-10 w-full mx-auto max-w-[1400px] px-6 md:px-10 pb-16 md:pb-24 pt-40">
+    <div class="grid lg:grid-cols-12 gap-10 items-end">
+      <div class="lg:col-span-8 reveal">
+        <p class="tracking-label uppercase text-sky text-xs md:text-sm font-semibold mb-6" data-i18n="hero.eyebrow">Ательє індивідуального пошиття</p>
+        <h1 class="font-display text-[11vw] leading-[1.02] sm:text-6xl md:text-6xl lg:text-[4.4rem] xl:text-[5.2rem] text-cream" data-i18n-html="hero.headline">Довіра, якість і ваша унікальність</h1>
+        <p class="mt-7 max-w-xl text-base md:text-lg text-cream/80 leading-[1.7]" data-i18n="hero.subtitle">Бездоганний класичний, вечірній та повсякденний одяг з ідеальною посадкою — для жінок, чоловіків та дітей.</p>
+        <div class="mt-9 flex flex-wrap items-center gap-4">
+          <a href="#feedback" class="btn-pill btn-primary" data-i18n="hero.cta">Записатись на консультацію</a>
+          <a href="#about" class="btn-pill btn-ghost" data-i18n="hero.cta2">Про засновницю</a>
+        </div>
+      </div>
+
+      <div class="lg:col-span-4 reveal reveal-delay-2">
+        <div class="img-treat rounded-[28px] overflow-hidden surface-elevated">
+          <img src="images/hero-card.jpg" alt="Тетяна Верба за роботою" class="w-full aspect-[4/5] object-cover">
+          <div class="img-overlay"></div>
+          <div class="img-tint"></div>
+          <p class="absolute bottom-5 left-5 right-5 text-cream text-base md:text-lg font-display italic leading-snug" data-i18n="hero.card">«Кожна річ починається з діалогу і довіри»</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ SERVICES ============ -->
+<section id="services" class="relative bg-white py-24 md:py-36">
+  <div class="mx-auto max-w-[1400px] px-6 md:px-10">
+    <div class="grid lg:grid-cols-12 gap-8 lg:gap-12 items-end">
+      <div class="lg:col-span-7 reveal">
+        <p class="tracking-label uppercase text-gold text-xs md:text-sm font-semibold mb-5" data-i18n="services.eyebrow">Послуги</p>
+        <h2 class="font-display text-4xl md:text-5xl lg:text-[3.4rem] leading-[1.08] text-ink" data-i18n="services.heading">Одяг, створений персонально для вас — від ідеї до останнього стібка</h2>
+      </div>
+      <div class="lg:col-span-5 reveal reveal-delay-1">
+        <p class="text-ink/70 leading-[1.7] mb-6" data-i18n="services.subtitle">Кожна деталь узгоджується з вами особисто — від тканини до фінальної примірки.</p>
+        <a href="#portfolio" class="btn-compound">
+          <span data-i18n="services.button">Наші роботи</span>
+          <span class="btn-compound-icon"><svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M4 12L12 4M12 4H5M12 4V11" stroke="#171310" stroke-width="1.3"/></svg></span>
+        </a>
+      </div>
+    </div>
+
+    <div class="mt-16 md:mt-20 hairline"></div>
+
+    <div class="services-list">
+      <div class="reveal group py-10 md:py-14 border-b border-ink/10 grid md:grid-cols-12 gap-6 md:gap-8 items-center">
+        <div class="md:col-span-3">
+          <div class="img-treat rounded-2xl overflow-hidden aspect-[4/3] surface">
+            <img src="images/portfolio-evening-gown.jpg" alt="Жіночий гардероб VERBA" class="w-full h-full object-cover">
+            <div class="img-tint"></div>
+          </div>
+        </div>
+        <span class="md:col-span-1 text-gold font-display text-2xl">01</span>
+        <div class="md:col-span-8">
+          <h3 class="font-display text-3xl md:text-5xl text-ink" data-i18n="services.s1.title">Жіночий гардероб</h3>
+          <p class="mt-4 max-w-2xl text-ink/70 leading-[1.7]" data-i18n="services.s1.desc">Вечірні, випускні та весільні сукні в єдиному екземплярі. Класичні ділові костюми, брюки, спідниці та блузи. Ексклюзивні пальта й куртки, затишний трикотаж, повсякденний та спортивний одяг.</p>
+        </div>
+      </div>
+
+      <div class="reveal group py-10 md:py-14 border-b border-ink/10 grid md:grid-cols-12 gap-6 md:gap-8 items-center">
+        <div class="md:col-span-3">
+          <div class="img-treat rounded-2xl overflow-hidden aspect-[4/3] surface">
+            <img src="images/portfolio-mens-suit.jpg" alt="Чоловічий гардероб VERBA" class="w-full h-full object-cover">
+            <div class="img-tint"></div>
+          </div>
+        </div>
+        <span class="md:col-span-1 text-gold font-display text-2xl">02</span>
+        <div class="md:col-span-8">
+          <h3 class="font-display text-3xl md:text-5xl text-ink" data-i18n="services.s2.title">Чоловічий гардероб</h3>
+          <p class="mt-4 max-w-2xl text-ink/70 leading-[1.7]" data-i18n="services.s2.desc">Класичні чоловічі костюми та смокінги. Елегантні пальта, піджаки та штани, пошиті за індивідуальними мірками з увагою до кожної деталі.</p>
+        </div>
+      </div>
+
+      <div class="reveal group py-10 md:py-14 border-b border-ink/10 grid md:grid-cols-12 gap-6 md:gap-8 items-center">
+        <div class="md:col-span-3">
+          <div class="img-treat rounded-2xl overflow-hidden aspect-[4/3] surface">
+            <img src="images/services-special.jpg" alt="Спеціальні та корпоративні замовлення VERBA" class="w-full h-full object-cover">
+            <div class="img-tint"></div>
+          </div>
+        </div>
+        <span class="md:col-span-1 text-gold font-display text-2xl">03</span>
+        <div class="md:col-span-8">
+          <h3 class="font-display text-3xl md:text-5xl text-ink" data-i18n="services.s3.title">Спеціальні та корпоративні замовлення</h3>
+          <p class="mt-4 max-w-2xl text-ink/70 leading-[1.7]" data-i18n="services.s3.desc">Бальні та сценічні костюми. Корпоративний одяг преміум-класу — для персоналу готелів, ресторанів та медичних закладів.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ PORTFOLIO ============ -->
+<section id="portfolio" class="relative bg-white py-24 md:py-36">
+  <div class="mx-auto max-w-[1400px] px-6 md:px-10">
+    <p class="tracking-label uppercase text-gold text-xs md:text-sm font-semibold mb-5 reveal" data-i18n="portfolio.eyebrow">Портфоліо</p>
+    <h2 class="font-display text-4xl md:text-5xl lg:text-[3.4rem] leading-[1.08] text-ink max-w-3xl reveal reveal-delay-1" data-i18n="portfolio.heading">Роботи, якими ми щиро пишаємось</h2>
+
+    <div class="mt-16 md:mt-20 grid sm:grid-cols-2 gap-8">
+      <a href="#feedback" class="reveal group flex flex-col rounded-[24px] overflow-hidden surface">
+        <div class="img-treat aspect-[16/11] shrink-0">
+          <img src="images/portfolio-evening-gown.jpg" alt="Вечірня сукня VERBA" class="w-full h-full object-cover">
+          <div class="img-tint"></div>
+        </div>
+        <div class="bg-ink px-7 py-7 flex flex-col flex-1">
+          <h3 class="font-display text-2xl md:text-[1.7rem] text-cream leading-snug" data-i18n="portfolio.p1.title">Вечірня сукня</h3>
+          <p class="mt-3 text-sm text-cream/60 leading-[1.6]" data-i18n="portfolio.p1.desc">Сукня в єдиному екземплярі для незабутнього виходу — драпірований шовк і бездоганна посадка.</p>
+          <div class="flex-1 min-h-6"></div>
+          <div class="mt-6 pt-5 border-t border-cream/15 flex items-center justify-between gap-4">
+            <span class="text-sm text-cream/55" data-i18n="portfolio.p1.tag">Шовк</span>
+            <span class="text-sm text-cream underline underline-offset-4 decoration-cream/40 group-hover:decoration-cream transition-colors" data-i18n="portfolio.cta">Замовити подібне</span>
+          </div>
+        </div>
+      </a>
+
+      <a href="#feedback" class="reveal reveal-delay-1 group flex flex-col rounded-[24px] overflow-hidden surface">
+        <div class="img-treat aspect-[16/11] shrink-0">
+          <img src="images/portfolio-bridal.jpg" alt="Весільна сукня VERBA" class="w-full h-full object-cover">
+          <div class="img-tint"></div>
+        </div>
+        <div class="bg-ink px-7 py-7 flex flex-col flex-1">
+          <h3 class="font-display text-2xl md:text-[1.7rem] text-cream leading-snug" data-i18n="portfolio.p2.title">Весільна сукня</h3>
+          <p class="mt-3 text-sm text-cream/60 leading-[1.6]" data-i18n="portfolio.p2.desc">Корсетний силует, авторська мереживна обробка та бездоганне внутрішнє виконання.</p>
+          <div class="flex-1 min-h-6"></div>
+          <div class="mt-6 pt-5 border-t border-cream/15 flex items-center justify-between gap-4">
+            <span class="text-sm text-cream/55" data-i18n="portfolio.p2.tag">Мереживо</span>
+            <span class="text-sm text-cream underline underline-offset-4 decoration-cream/40 group-hover:decoration-cream transition-colors" data-i18n="portfolio.cta">Замовити подібне</span>
+          </div>
+        </div>
+      </a>
+
+      <a href="#feedback" class="reveal group flex flex-col rounded-[24px] overflow-hidden surface">
+        <div class="img-treat aspect-[16/11] shrink-0">
+          <img src="images/portfolio-womens-suit.jpg" alt="Жіночий діловий костюм VERBA" class="w-full h-full object-cover">
+          <div class="img-tint"></div>
+        </div>
+        <div class="bg-ink px-7 py-7 flex flex-col flex-1">
+          <h3 class="font-display text-2xl md:text-[1.7rem] text-cream leading-snug" data-i18n="portfolio.p3.title">Жіночий діловий костюм</h3>
+          <p class="mt-3 text-sm text-cream/60 leading-[1.6]" data-i18n="portfolio.p3.desc">Чіткий силует та бездоганна посадка для впевненості на кожних перемовинах.</p>
+          <div class="flex-1 min-h-6"></div>
+          <div class="mt-6 pt-5 border-t border-cream/15 flex items-center justify-between gap-4">
+            <span class="text-sm text-cream/55" data-i18n="portfolio.p3.tag">Вовна</span>
+            <span class="text-sm text-cream underline underline-offset-4 decoration-cream/40 group-hover:decoration-cream transition-colors" data-i18n="portfolio.cta">Замовити подібне</span>
+          </div>
+        </div>
+      </a>
+
+      <a href="#feedback" class="reveal reveal-delay-1 group flex flex-col rounded-[24px] overflow-hidden surface">
+        <div class="img-treat aspect-[16/11] shrink-0">
+          <img src="images/portfolio-mens-suit.jpg" alt="Чоловічий костюм VERBA" class="w-full h-full object-cover">
+          <div class="img-tint"></div>
+        </div>
+        <div class="bg-ink px-7 py-7 flex flex-col flex-1">
+          <h3 class="font-display text-2xl md:text-[1.7rem] text-cream leading-snug" data-i18n="portfolio.p4.title">Чоловічий костюм</h3>
+          <p class="mt-3 text-sm text-cream/60 leading-[1.6]" data-i18n="portfolio.p4.desc">Точний крій за індивідуальними мірками з увагою до кожного стібка.</p>
+          <div class="flex-1 min-h-6"></div>
+          <div class="mt-6 pt-5 border-t border-cream/15 flex items-center justify-between gap-4">
+            <span class="text-sm text-cream/55" data-i18n="portfolio.p4.tag">Твід</span>
+            <span class="text-sm text-cream underline underline-offset-4 decoration-cream/40 group-hover:decoration-cream transition-colors" data-i18n="portfolio.cta">Замовити подібне</span>
+          </div>
+        </div>
+      </a>
+
+      <a href="#feedback" class="reveal group flex flex-col rounded-[24px] overflow-hidden surface">
+        <div class="img-treat aspect-[16/11] shrink-0">
+          <img src="images/portfolio-coat.jpg" alt="Пальто VERBA" class="w-full h-full object-cover">
+          <div class="img-tint"></div>
+        </div>
+        <div class="bg-ink px-7 py-7 flex flex-col flex-1">
+          <h3 class="font-display text-2xl md:text-[1.7rem] text-cream leading-snug" data-i18n="portfolio.p5.title">Ексклюзивне пальто</h3>
+          <p class="mt-3 text-sm text-cream/60 leading-[1.6]" data-i18n="portfolio.p5.desc">Верхній одяг, що поєднує тепло, статус та вишуканий силует.</p>
+          <div class="flex-1 min-h-6"></div>
+          <div class="mt-6 pt-5 border-t border-cream/15 flex items-center justify-between gap-4">
+            <span class="text-sm text-cream/55" data-i18n="portfolio.p5.tag">Кашемір</span>
+            <span class="text-sm text-cream underline underline-offset-4 decoration-cream/40 group-hover:decoration-cream transition-colors" data-i18n="portfolio.cta">Замовити подібне</span>
+          </div>
+        </div>
+      </a>
+
+      <a href="#feedback" class="reveal reveal-delay-1 group flex flex-col rounded-[24px] overflow-hidden surface">
+        <div class="img-treat aspect-[16/11] shrink-0">
+          <img src="images/portfolio-knitwear.jpg" alt="В'язаний светр VERBA" class="w-full h-full object-cover">
+          <div class="img-tint"></div>
+        </div>
+        <div class="bg-ink px-7 py-7 flex flex-col flex-1">
+          <h3 class="font-display text-2xl md:text-[1.7rem] text-cream leading-snug" data-i18n="portfolio.p6.title">В'язаний светр</h3>
+          <p class="mt-3 text-sm text-cream/60 leading-[1.6]" data-i18n="portfolio.p6.desc">Затишний светр ручної в'язки з м'якої вовни для стильної повсякденності.</p>
+          <div class="flex-1 min-h-6"></div>
+          <div class="mt-6 pt-5 border-t border-cream/15 flex items-center justify-between gap-4">
+            <span class="text-sm text-cream/55" data-i18n="portfolio.p6.tag">Трикотаж</span>
+            <span class="text-sm text-cream underline underline-offset-4 decoration-cream/40 group-hover:decoration-cream transition-colors" data-i18n="portfolio.cta">Замовити подібне</span>
+          </div>
+        </div>
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- ============ CALL TO ACTION ============ -->
+<section id="cta" class="relative bg-butter py-20 md:py-28 overflow-hidden">
+  <div class="absolute inset-0 opacity-[0.55]">
+    <img src="images/cta-flatlay.jpg" alt="" class="w-full h-full object-cover">
+    <div class="absolute inset-0 bg-gradient-to-r from-butter via-butter/85 to-butter/40"></div>
+  </div>
+  <div class="relative mx-auto max-w-[1400px] px-6 md:px-10">
+    <div class="max-w-2xl reveal">
+      <p class="tracking-label uppercase text-white/70 text-xs md:text-sm font-semibold mb-5" data-i18n="cta.eyebrow">Наступний крок</p>
+      <h2 class="font-display text-4xl md:text-5xl lg:text-6xl leading-[1.05] text-white" data-i18n="cta.heading">Готові створити свою історію?</h2>
+      <p class="mt-6 text-white/85 text-base md:text-lg leading-[1.7] max-w-lg" data-i18n="cta.text">Напишіть нам у Telegram або WhatsApp — і ми зв'яжемось з вами для першої консультації протягом дня.</p>
+      <div class="mt-9 flex flex-wrap gap-4">
+        <a href="#feedback" class="btn-pill btn-dark" data-i18n="cta.button1">Заповнити форму</a>
+        <a href="https://t.me/verba_studio" target="_blank" rel="noopener" class="btn-pill btn-ghost" data-i18n="cta.button2">Написати в Telegram</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ ABOUT US ============ -->
+<section id="about" class="relative bg-white py-24 md:py-36">
+  <div class="mx-auto max-w-[1400px] px-6 md:px-10">
+    <div class="grid lg:grid-cols-12 gap-14 lg:gap-20 items-stretch">
+      <div class="lg:col-span-6 order-2 lg:order-1 reveal flex flex-col justify-center py-2">
+        <p class="tracking-label uppercase text-skydeep text-xs md:text-sm font-semibold mb-7" data-i18n="about.eyebrow">Про нас</p>
+        <h2 class="font-display text-4xl md:text-5xl leading-[1.1] text-ink" data-i18n="about.heading">Ми шиємо не просто одяг — ми створюємо ваші особисті історії успіху.</h2>
+        <p class="mt-9 text-ink/70 leading-[1.75]" data-i18n="about.body">Засновниця та головний дизайнер-модельєр бренду VERBA Тетяна Верба створює одяг з 2003 року. Побудувавши понад 20-річну історію бренду в Україні, сьогодні Тетяна розвиває VERBA в Німеччині — індивідуальні візити, зустрічі в затишній камерній майстерні або онлайн. Повний цикл: від ідеї, ескізу та авторського конструювання — до крою, примірок і бездоганного пошиття.</p>
+        <div class="mt-12 flex flex-wrap items-center gap-8">
+          <a href="#process" class="btn-pill" data-i18n="about.button">Як ми працюємо</a>
+          <div class="inline-flex items-center gap-3 pl-5 pr-6 py-3 rounded-2xl border border-gold/30 bg-gold/5">
+            <p class="font-display text-4xl text-gold leading-none">20+</p>
+            <p class="text-sm font-semibold text-ink uppercase tracking-label" data-i18n="about.stat">років досвіду</p>
+          </div>
+        </div>
+      </div>
+      <div class="lg:col-span-6 order-1 lg:order-2 reveal reveal-delay-2">
+        <div class="img-treat rounded-[28px] overflow-hidden aspect-[3/4] md:aspect-[4/5] lg:aspect-auto lg:h-full surface-elevated">
+          <img src="images/about-portrait.jpg" alt="Тетяна Верба, засновниця VERBA" class="w-full h-full object-cover">
+          <div class="img-tint"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ WORK PROCESS ============ -->
+<section id="process" class="relative bg-white py-24 md:py-36">
+  <div class="mx-auto max-w-[1400px] px-6 md:px-10">
+    <div class="grid lg:grid-cols-12 gap-8 lg:gap-12 items-end">
+      <div class="lg:col-span-7 reveal">
+        <p class="tracking-label uppercase text-gold text-xs md:text-sm font-semibold mb-5" data-i18n="process.eyebrow">Як ми працюємо</p>
+        <h2 class="font-display text-4xl md:text-5xl lg:text-[3.4rem] leading-[1.08] text-ink" data-i18n="process.heading">Процес, що гнучко адаптується під вас</h2>
+      </div>
+      <div class="lg:col-span-5 reveal reveal-delay-1">
+        <p class="text-ink/70 leading-[1.7] mb-6" data-i18n="process.subtitle">Прозорий процес на кожному етапі — від першої ідеї до фінального стібка.</p>
+        <a href="#feedback" class="btn-compound">
+          <span data-i18n="process.cta">Обговорити ваш проєкт</span>
+          <span class="btn-compound-icon"><svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M4 12L12 4M12 4H5M12 4V11" stroke="#171310" stroke-width="1.3"/></svg></span>
+        </a>
+      </div>
+    </div>
+
+    <div class="mt-16 md:mt-20 hairline"></div>
+
+    <div>
+      <div class="reveal group py-10 md:py-14 border-b border-ink/10 grid md:grid-cols-12 gap-6 md:gap-8 items-center">
+        <div class="md:col-span-3">
+          <div class="img-treat rounded-2xl overflow-hidden aspect-[4/3] surface">
+            <img src="images/hero-card.jpg" alt="Ідея та концепція VERBA" class="w-full h-full object-cover">
+            <div class="img-tint"></div>
+          </div>
+        </div>
+        <span class="md:col-span-1 text-gold font-display text-2xl">01</span>
+        <div class="md:col-span-8">
+          <h3 class="font-display text-3xl md:text-5xl text-ink" data-i18n="process.s1.title">Ідея та концепція</h3>
+          <p class="mt-4 max-w-2xl text-ink/70 leading-[1.7]" data-i18n="process.s1.desc">Обговорюємо фасон, тканини та деталі. Ви можете прийти з власною ідеєю чи фото — або ми розробимо образ з нуля відповідно до ваших побажань.</p>
+        </div>
+      </div>
+
+      <div class="reveal group py-10 md:py-14 border-b border-ink/10 grid md:grid-cols-12 gap-6 md:gap-8 items-center">
+        <div class="md:col-span-3">
+          <div class="img-treat rounded-2xl overflow-hidden aspect-[4/3] surface">
+            <img src="images/process-measuring.jpg" alt="Зняття мірок VERBA" class="w-full h-full object-cover">
+            <div class="img-tint"></div>
+          </div>
+        </div>
+        <span class="md:col-span-1 text-gold font-display text-2xl">02</span>
+        <div class="md:col-span-8">
+          <h3 class="font-display text-3xl md:text-5xl text-ink" data-i18n="process.s2.title">Зняття мірок</h3>
+          <p class="mt-4 max-w-2xl text-ink/70 leading-[1.7]" data-i18n="process.s2.desc">Особиста зустріч або онлайн-консультація, де ми даємо прості та точні інструкції, як легко зняти мірки самостійно.</p>
+        </div>
+      </div>
+
+      <div class="reveal group py-10 md:py-14 border-b border-ink/10 grid md:grid-cols-12 gap-6 md:gap-8 items-center">
+        <div class="md:col-span-3">
+          <div class="img-treat rounded-2xl overflow-hidden aspect-[4/3] surface">
+            <img src="images/process-fitting.jpg" alt="Примірка та підгонка VERBA" class="w-full h-full object-cover">
+            <div class="img-tint"></div>
+          </div>
+        </div>
+        <span class="md:col-span-1 text-gold font-display text-2xl">03</span>
+        <div class="md:col-span-8">
+          <h3 class="font-display text-3xl md:text-5xl text-ink" data-i18n="process.s3.title">Примірка та підгонка</h3>
+          <p class="mt-4 max-w-2xl text-ink/70 leading-[1.7]" data-i18n="process.s3.desc">Для лаконічних фасонів — швидка звірка по фото чи відео. Для складного крою — примірка поштою з детальною фото- та відеозвіркою посадки.</p>
+        </div>
+      </div>
+
+      <div class="reveal group py-10 md:py-14 border-b border-ink/10 grid md:grid-cols-12 gap-6 md:gap-8 items-center">
+        <div class="md:col-span-3">
+          <div class="img-treat rounded-2xl overflow-hidden aspect-[4/3] surface">
+            <img src="images/values-band.jpg" alt="Готовий результат VERBA" class="w-full h-full object-cover">
+            <div class="img-tint"></div>
+          </div>
+        </div>
+        <span class="md:col-span-1 text-gold font-display text-2xl">04</span>
+        <div class="md:col-span-8">
+          <h3 class="font-display text-3xl md:text-5xl text-ink" data-i18n="process.s4.title">Готовий результат</h3>
+          <p class="mt-4 max-w-2xl text-ink/70 leading-[1.7]" data-i18n="process.s4.desc">Ви отримуєте виріб з бездоганною посадкою. Рівень обробки — на ваш вибір: від охайного класичного до кутюрного, з натуральним шовком, мереживом і персональною вишивкою.</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="mt-14 grid md:grid-cols-2 gap-6">
+      <div class="reveal surface rounded-[22px] p-8 md:p-10">
+        <p class="text-gold text-sm font-semibold tracking-label uppercase mb-3" data-i18n="process.note1.title">Потрібно терміново?</p>
+        <p class="text-ink/70 leading-[1.7]" data-i18n="process.note1.text">Можливе виготовлення поза чергою, якщо вбрання потрібне під конкретну подію (з доплатою за терміновість).</p>
+      </div>
+      <div class="reveal reveal-delay-1 surface rounded-[22px] p-8 md:p-10">
+        <p class="text-gold text-sm font-semibold tracking-label uppercase mb-3" data-i18n="process.note2.title">Не можете приїхати?</p>
+        <p class="text-ink/70 leading-[1.7]" data-i18n="process.note2.text">Ідею й тканини узгоджуємо дистанційно, а Тетяна Верба особисто приїжджає до вас для примірок (за умови покриття дорожніх витрат).</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ TESTIMONIALS ============ -->
+<section id="testimonials" class="relative bg-white py-24 md:py-36">
+  <div class="mx-auto max-w-[1400px] px-6 md:px-10">
+    <p class="tracking-label uppercase text-gold text-xs md:text-sm font-semibold mb-5 reveal" data-i18n="testimonials.eyebrow">Відгуки</p>
+    <h2 class="font-display text-4xl md:text-5xl lg:text-[3.4rem] leading-[1.08] text-ink max-w-3xl reveal reveal-delay-1" data-i18n="testimonials.heading">Історії, які надихають нас продовжувати</h2>
+
+    <div class="mt-16 md:mt-20 grid md:grid-cols-3 gap-8">
+      <div class="reveal group">
+        <div class="img-treat rounded-[24px] overflow-hidden aspect-[3/4] surface relative">
+          <img src="images/testimonial-1.jpg" alt="Відгук клієнтки VERBA" class="w-full h-full object-cover">
+          <div class="img-overlay"></div>
+          <div class="absolute inset-0 flex items-center justify-center"><span class="play-btn">
+            <svg width="18" height="20" viewBox="0 0 18 20" fill="none"><path d="M17 9.13L1.5 0.5C1 0.2 0 0.5 0 1.4V18.6C0 19.5 1 19.8 1.5 19.5L17 10.87C17.5 10.6 17.5 9.4 17 9.13Z" fill="#171310"/></svg>
+          </span></div>
+        </div>
+        <p class="mt-6 font-display text-xl md:text-2xl italic text-ink leading-snug" data-i18n="testimonials.t1.quote">«Тетяна почула саме те, що я хотіла сказати без слів. Сукня стала моєю другою шкірою.»</p>
+        <p class="mt-4 text-ink/55 text-sm" data-i18n="testimonials.t1.name">Олена, клієнтка</p>
+      </div>
+
+      <div class="reveal reveal-delay-1 group">
+        <div class="img-treat rounded-[24px] overflow-hidden aspect-[3/4] surface relative">
+          <img src="images/testimonial-2.jpg" alt="Відгук клієнта VERBA" class="w-full h-full object-cover">
+          <div class="img-overlay"></div>
+          <div class="absolute inset-0 flex items-center justify-center"><span class="play-btn">
+            <svg width="18" height="20" viewBox="0 0 18 20" fill="none"><path d="M17 9.13L1.5 0.5C1 0.2 0 0.5 0 1.4V18.6C0 19.5 1 19.8 1.5 19.5L17 10.87C17.5 10.6 17.5 9.4 17 9.13Z" fill="#171310"/></svg>
+          </span></div>
+        </div>
+        <p class="mt-6 font-display text-xl md:text-2xl italic text-ink leading-snug" data-i18n="testimonials.t2.quote">«Костюм від VERBA сидить так, ніби його виточили під мене. Цей рівень відчувається одразу.»</p>
+        <p class="mt-4 text-ink/55 text-sm" data-i18n="testimonials.t2.name">Максим, клієнт</p>
+      </div>
+
+      <div class="reveal reveal-delay-2 group">
+        <div class="img-treat rounded-[24px] overflow-hidden aspect-[3/4] surface relative">
+          <img src="images/testimonial-3.jpg" alt="Відгук клієнтки VERBA" class="w-full h-full object-cover">
+          <div class="img-overlay"></div>
+          <div class="absolute inset-0 flex items-center justify-center"><span class="play-btn">
+            <svg width="18" height="20" viewBox="0 0 18 20" fill="none"><path d="M17 9.13L1.5 0.5C1 0.2 0 0.5 0 1.4V18.6C0 19.5 1 19.8 1.5 19.5L17 10.87C17.5 10.6 17.5 9.4 17 9.13Z" fill="#171310"/></svg>
+          </span></div>
+        </div>
+        <p class="mt-6 font-display text-xl md:text-2xl italic text-ink leading-snug" data-i18n="testimonials.t3.quote">«Це не просто пошиття. Це турбота, час і щирість на кожному етапі.»</p>
+        <p class="mt-4 text-ink/55 text-sm" data-i18n="testimonials.t3.name">Юлія, клієнтка</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ FAQ ============ -->
+<section id="faq" class="relative bg-white py-24 md:py-36">
+  <div class="mx-auto max-w-[1400px] px-6 md:px-10">
+    <div class="grid lg:grid-cols-12 gap-8">
+      <div class="lg:col-span-4 reveal">
+        <p class="tracking-label uppercase text-gold text-xs md:text-sm font-semibold mb-5" data-i18n="faq.eyebrow">FAQ</p>
+        <h2 class="font-display text-4xl md:text-5xl leading-[1.08] text-ink" data-i18n="faq.heading">Питання, які нам ставлять найчастіше</h2>
+      </div>
+
+      <div class="lg:col-span-8 reveal reveal-delay-1">
+        <div id="faq-list" class="divide-y divide-ink/10 border-t border-b border-ink/10">
+          <details class="faq-item group py-7">
+            <summary class="flex items-center justify-between gap-6">
+              <span class="font-display text-xl md:text-2xl text-ink" data-i18n="faq.q1.q">Скільки триває виготовлення одягу?</span>
+              <span class="icon-circle faq-chevron !w-10 !h-10 shrink-0"><svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M7 0V14M0 7H14" stroke="#171310" stroke-width="1.3"/></svg></span>
+            </summary>
+            <p class="faq-answer text-ink/70 leading-[1.75] pt-4 pr-16" data-i18n="faq.q1.a">Виготовлення однієї речі може займати від кількох годин до кількох тижнів — залежно від складності. Якщо вбрання потрібне терміново, можливе виготовлення поза чергою з доплатою.</p>
+          </details>
+          <details class="faq-item group py-7">
+            <summary class="flex items-center justify-between gap-6">
+              <span class="font-display text-xl md:text-2xl text-ink" data-i18n="faq.q2.q">Скільки коштує індивідуальне пошиття?</span>
+              <span class="icon-circle faq-chevron !w-10 !h-10 shrink-0"><svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M7 0V14M0 7H14" stroke="#171310" stroke-width="1.3"/></svg></span>
+            </summary>
+            <p class="faq-answer text-ink/70 leading-[1.75] pt-4 pr-16" data-i18n="faq.q2.a">Вартість залежить від рівня внутрішньої обробки, складності крою та деталізації — тому кожен проєкт ми обговорюємо індивідуально.</p>
+          </details>
+          <details class="faq-item group py-7">
+            <summary class="flex items-center justify-between gap-6">
+              <span class="font-display text-xl md:text-2xl text-ink" data-i18n="faq.q3.q">Як відбувається перший контакт?</span>
+              <span class="icon-circle faq-chevron !w-10 !h-10 shrink-0"><svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M7 0V14M0 7H14" stroke="#171310" stroke-width="1.3"/></svg></span>
+            </summary>
+            <p class="faq-answer text-ink/70 leading-[1.75] pt-4 pr-16" data-i18n="faq.q3.a">Для швидкості й зручності спілкування різними мовами перший контакт відбувається в Telegram або WhatsApp. Ви можете одразу надіслати фото, поставити запитання чи передати мірки.</p>
+          </details>
+          <details class="faq-item group py-7">
+            <summary class="flex items-center justify-between gap-6">
+              <span class="font-display text-xl md:text-2xl text-ink" data-i18n="faq.q4.q">Скільки примірок зазвичай потрібно?</span>
+              <span class="icon-circle faq-chevron !w-10 !h-10 shrink-0"><svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M7 0V14M0 7H14" stroke="#171310" stroke-width="1.3"/></svg></span>
+            </summary>
+            <p class="faq-answer text-ink/70 leading-[1.75] pt-4 pr-16" data-i18n="faq.q4.a">Залежить від складності фасону — від однієї швидкої звірки по фото до кількох особистих або поштових примірок для складного крою.</p>
+          </details>
+          <details class="faq-item group py-7">
+            <summary class="flex items-center justify-between gap-6">
+              <span class="font-display text-xl md:text-2xl text-ink" data-i18n="faq.q5.q">Що робити, якщо я не можу приїхати особисто?</span>
+              <span class="icon-circle faq-chevron !w-10 !h-10 shrink-0"><svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M7 0V14M0 7H14" stroke="#171310" stroke-width="1.3"/></svg></span>
+            </summary>
+            <p class="faq-answer text-ink/70 leading-[1.75] pt-4 pr-16" data-i18n="faq.q5.a">Ідею та тканини узгоджуємо дистанційно. За потреби Тетяна Верба особисто приїжджає до вас для примірок і підгонки — за умови покриття дорожніх витрат.</p>
+          </details>
+          <details class="faq-item group py-7">
+            <summary class="flex items-center justify-between gap-6">
+              <span class="font-display text-xl md:text-2xl text-ink" data-i18n="faq.q6.q">Який у вас графік роботи?</span>
+              <span class="icon-circle faq-chevron !w-10 !h-10 shrink-0"><svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M7 0V14M0 7H14" stroke="#171310" stroke-width="1.3"/></svg></span>
+            </summary>
+            <p class="faq-answer text-ink/70 leading-[1.75] pt-4 pr-16" data-i18n="faq.q6.a">Прийом клієнтів та консультації відбуваються за попереднім записом.</p>
+          </details>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ FEEDBACK FORM ============ -->
+<section id="feedback" class="relative bg-sky py-20 md:py-28">
+  <div class="mx-auto max-w-[1400px] px-6 md:px-10">
+    <div class="grid lg:grid-cols-12 gap-12 lg:gap-20">
+      <div class="lg:col-span-5 reveal">
+        <p class="tracking-label uppercase text-ink/55 text-xs md:text-sm font-semibold mb-5" data-i18n="feedback.eyebrow">Зворотній зв'язок</p>
+        <h2 class="font-display text-4xl md:text-5xl leading-[1.08] text-ink" data-i18n="feedback.heading">Розкажіть нам про вашу ідею</h2>
+        <p class="mt-6 text-ink/70 leading-[1.7] max-w-md" data-i18n="feedback.text">Заповніть форму — і ми зв'яжемось з вами протягом дня, щоб обговорити деталі та призначити першу консультацію.</p>
+      </div>
+
+      <form class="lg:col-span-7 reveal reveal-delay-1" onsubmit="event.preventDefault(); this.reset(); document.getElementById('form-success').classList.remove('hidden');">
+        <div class="grid sm:grid-cols-2 gap-5">
+          <div>
+            <label class="block text-sm font-semibold text-ink/70 mb-2" data-i18n="feedback.firstname">Ім'я*</label>
+            <input required type="text" class="w-full rounded-2xl px-5 py-4 text-ink" data-i18n-placeholder="feedback.firstname.ph" placeholder="Ваше ім'я">
+          </div>
+          <div>
+            <label class="block text-sm font-semibold text-ink/70 mb-2" data-i18n="feedback.lastname">Прізвище*</label>
+            <input required type="text" class="w-full rounded-2xl px-5 py-4 text-ink" data-i18n-placeholder="feedback.lastname.ph" placeholder="Ваше прізвище">
+          </div>
+          <div>
+            <label class="block text-sm font-semibold text-ink/70 mb-2" data-i18n="feedback.email">Email*</label>
+            <input required type="email" class="w-full rounded-2xl px-5 py-4 text-ink" placeholder="name@mail.com">
+          </div>
+          <div>
+            <label class="block text-sm font-semibold text-ink/70 mb-2" data-i18n="feedback.phone">Телефон*</label>
+            <input required type="tel" class="w-full rounded-2xl px-5 py-4 text-ink" placeholder="+49 000 000 000">
+          </div>
+          <div class="sm:col-span-2">
+            <label class="block text-sm font-semibold text-ink/70 mb-2" data-i18n="feedback.message">Повідомлення*</label>
+            <textarea required rows="4" class="w-full rounded-2xl px-5 py-4 text-ink resize-none" data-i18n-placeholder="feedback.message.ph" placeholder="Розкажіть про ваш задум, подію чи фасон, який ви маєте на увазі"></textarea>
+          </div>
+        </div>
+        <button type="submit" class="btn-pill btn-dark mt-7" data-i18n="feedback.submit">Надіслати</button>
+        <p id="form-success" class="hidden mt-5 text-ink/70 text-sm" data-i18n="feedback.success">Дякуємо! Ми зв'яжемось з вами найближчим часом.</p>
+      </form>
+    </div>
+  </div>
+</section>
+
+<!-- ============ CONTACT DETAILS ============ -->
+<section id="contact" class="relative bg-white py-24 md:py-32">
+  <div class="mx-auto max-w-[1400px] px-6 md:px-10">
+    <div class="grid lg:grid-cols-12 gap-10">
+      <div class="lg:col-span-5 reveal">
+        <p class="tracking-label uppercase text-gold text-xs md:text-sm font-semibold mb-5" data-i18n="contact.eyebrow">Контакти</p>
+        <h2 class="font-display text-4xl md:text-5xl leading-[1.08] text-ink" data-i18n="contact.heading">Завжди на зв'язку</h2>
+        <p class="mt-6 text-ink/70 leading-[1.7] max-w-md" data-i18n="contact.text">Перший контакт відбувається у Telegram або WhatsApp — надішліть фото, запитання чи мірки, і ми відповімо протягом дня.</p>
+      </div>
+
+      <div class="lg:col-span-7 grid sm:grid-cols-2 gap-6">
+        <a href="https://t.me/verba_studio" target="_blank" rel="noopener" class="reveal surface rounded-[22px] p-8 hover:border-gold/40 transition-colors block">
+          <p class="text-sm text-ink/50 mb-2" data-i18n="contact.telegram.label">Telegram</p>
+          <p class="font-display text-2xl text-ink">@verba_studio</p>
+        </a>
+        <a href="https://wa.me/490000000000" target="_blank" rel="noopener" class="reveal reveal-delay-1 surface rounded-[22px] p-8 hover:border-gold/40 transition-colors block">
+          <p class="text-sm text-ink/50 mb-2" data-i18n="contact.whatsapp.label">WhatsApp</p>
+          <p class="font-display text-2xl text-ink">+49 000 000 000</p>
+        </a>
+        <a href="mailto:hello@verba-studio.com" class="reveal surface rounded-[22px] p-8 hover:border-gold/40 transition-colors block">
+          <p class="text-sm text-ink/50 mb-2" data-i18n="contact.email.label">Email</p>
+          <p class="font-display text-2xl text-ink">hello@verba-studio.com</p>
+        </a>
+        <div class="reveal reveal-delay-1 surface rounded-[22px] p-8">
+          <p class="text-sm text-ink/50 mb-2" data-i18n="contact.location.label">Ательє</p>
+          <p class="font-display text-2xl text-ink" data-i18n="contact.location.value">Німеччина · Україна</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+</main>
+
+<!-- ============ FOOTER ============ -->
+<footer class="relative bg-white pt-20 pb-10">
+  <div class="mx-auto max-w-[1400px] px-6 md:px-10">
+    <div class="flex flex-col md:flex-row md:items-end justify-between gap-10 pb-14">
+      <div>
+        <img src="images/logo-verba.svg" alt="VERBA" class="h-12 mb-6">
+        <p class="text-ink/60 max-w-xs leading-[1.7]" data-i18n="footer.tagline">Індивідуальне пошиття з 2003 року. Україна · Німеччина.</p>
+      </div>
+      <div class="flex flex-wrap gap-x-16 gap-y-8">
+        <div>
+          <p class="text-xs uppercase tracking-label text-ink/40 font-semibold mb-4" data-i18n="footer.nav">Навігація</p>
+          <div class="flex flex-col gap-2.5 text-ink/75">
+            <a href="#services" class="nav-link w-fit" data-i18n="nav.services">Послуги</a>
+            <a href="#portfolio" class="nav-link w-fit" data-i18n="nav.portfolio">Портфоліо</a>
+            <a href="#about" class="nav-link w-fit" data-i18n="nav.about">Про нас</a>
+            <a href="#process" class="nav-link w-fit" data-i18n="nav.process">Процес</a>
+          </div>
+        </div>
+        <div>
+          <p class="text-xs uppercase tracking-label text-ink/40 font-semibold mb-4" data-i18n="footer.social">Соцмережі</p>
+          <div class="flex flex-col gap-2.5 text-ink/75">
+            <a href="#" class="nav-link w-fit">Instagram</a>
+            <a href="#" class="nav-link w-fit">Pinterest</a>
+            <a href="#" class="nav-link w-fit">Facebook</a>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="hairline-dark"></div>
+    <div class="pt-8 flex flex-col sm:flex-row justify-between gap-4 text-sm text-ink/40">
+      <p data-i18n="footer.copyright">© VERBA. Усі права захищені.</p>
+      <p data-i18n="footer.credit">Дизайн та розробка сайту</p>
+    </div>
+  </div>
+</footer>
+
+<script>
+const I18N = {
+  uk: {
+    'nav.services':'Послуги','nav.portfolio':'Портфоліо','nav.about':'Про нас','nav.process':'Процес',
+    'nav.testimonials':'Відгуки','nav.faq':'FAQ','nav.contact':'Контакти','nav.cta':'Записатись',
+    'hero.eyebrow':'Ательє індивідуального пошиття',
+    'hero.headline':'Довіра, якість і ваша унікальність',
+    'hero.subtitle':'Бездоганний класичний, вечірній та повсякденний одяг з ідеальною посадкою — для жінок, чоловіків та дітей. Він підкреслює статус, надихає та закохує.',
+    'hero.cta':'Записатись на консультацію','hero.cta2':'Про засновницю',
+    'hero.card':'«Кожна річ починається з діалогу і довіри»',
+    'services.eyebrow':'Послуги',
+    'services.heading':'Одяг, створений персонально для вас — від ідеї до останнього стібка',
+    'services.button':'Наші роботи',
+    'services.subtitle':'Кожна деталь узгоджується з вами особисто — від тканини до фінальної примірки.',
+    'services.s1.title':'Жіночий гардероб',
+    'services.s1.desc':'Вечірні, випускні та весільні сукні в єдиному екземплярі. Класичні ділові костюми, брюки, спідниці та блузи. Ексклюзивні пальта й куртки, затишний трикотаж, повсякденний та спортивний одяг.',
+    'services.s2.title':'Чоловічий гардероб',
+    'services.s2.desc':'Класичні чоловічі костюми та смокінги. Елегантні пальта, піджаки та штани, пошиті за індивідуальними мірками з увагою до кожної деталі.',
+    'services.s3.title':'Спеціальні та корпоративні замовлення',
+    'services.s3.desc':'Бальні та сценічні костюми. Корпоративний одяг преміум-класу — для персоналу готелів, ресторанів та медичних закладів.',
+    'portfolio.eyebrow':'Портфоліо',
+    'portfolio.heading':'Роботи, якими ми щиро пишаємось',
+    'portfolio.p1.title':'Вечірня сукня','portfolio.p1.tag':'Шовк','portfolio.p1.desc':'Сукня в єдиному екземплярі для незабутнього виходу — драпірований шовк і бездоганна посадка.',
+    'portfolio.p2.title':'Весільна сукня','portfolio.p2.tag':'Мереживо','portfolio.p2.desc':'Корсетний силует, авторська мереживна обробка та бездоганне внутрішнє виконання кожної деталі.',
+    'portfolio.p3.title':'Жіночий діловий костюм','portfolio.p3.tag':'Вовна','portfolio.p3.desc':'Чіткий силует та бездоганна посадка, що додає впевненості на кожних важливих перемовинах.',
+    'portfolio.p4.title':'Чоловічий костюм','portfolio.p4.tag':'Твід','portfolio.p4.desc':'Точний крій за індивідуальними мірками з увагою до кожного стібка та бездоганної деталі.',
+    'portfolio.p5.title':'Ексклюзивне пальто','portfolio.p5.tag':'Кашемір','portfolio.p5.desc':'Верхній одяг, що поєднує тепло, статус та вишуканий силует для холодної пори року.',
+    'portfolio.p6.title':'В\'язаний светр','portfolio.p6.tag':'Трикотаж','portfolio.p6.desc':'Затишний светр ручної в\'язки з м\'якої вовни для стильної та комфортної повсякденності.',
+    'portfolio.cta':'Замовити подібне',
+    'cta.eyebrow':'Наступний крок','cta.heading':'Готові створити свою історію?',
+    'cta.text':'Напишіть нам у Telegram або WhatsApp — і ми зв\'яжемось з вами для першої консультації протягом дня.',
+    'cta.button1':'Заповнити форму','cta.button2':'Написати в Telegram',
+    'about.eyebrow':'Про нас',
+    'about.heading':'Ми шиємо не просто одяг — ми створюємо ваші особисті історії успіху.',
+    'about.body':'Засновниця та головний дизайнер-модельєр бренду VERBA Тетяна Верба створює одяг з 2003 року. Побудувавши понад 20-річну історію бренду в Україні, сьогодні Тетяна розвиває VERBA в Німеччині — індивідуальні візити, зустрічі в затишній камерній майстерні або онлайн. Повний цикл: від ідеї, ескізу та авторського конструювання — до крою, примірок і бездоганного пошиття.',
+    'about.button':'Як ми працюємо','about.stat':'років досвіду',
+    'process.eyebrow':'Як ми працюємо','process.heading':'Процес, що гнучко адаптується під вас',
+    'process.subtitle':'Прозорий процес на кожному етапі — від першої ідеї до фінального стібка.','process.cta':'Обговорити ваш проєкт',
+    'process.s1.title':'Ідея та концепція','process.s1.desc':'Обговорюємо фасон, тканини та деталі. Ви можете прийти з власною ідеєю чи фото — або ми розробимо образ з нуля відповідно до ваших побажань.',
+    'process.s2.title':'Зняття мірок','process.s2.desc':'Особиста зустріч або онлайн-консультація, де ми даємо прості та точні інструкції, як легко зняти мірки самостійно.',
+    'process.s3.title':'Примірка та підгонка','process.s3.desc':'Для лаконічних фасонів — швидка звірка по фото чи відео. Для складного крою — примірка поштою з детальною фото- та відеозвіркою посадки.',
+    'process.s4.title':'Готовий результат','process.s4.desc':'Ви отримуєте виріб з бездоганною посадкою. Рівень обробки — на ваш вибір: від охайного класичного до кутюрного, з натуральним шовком, мереживом і персональною вишивкою.',
+    'process.note1.title':'Потрібно терміново?','process.note1.text':'Можливе виготовлення поза чергою, якщо вбрання потрібне під конкретну подію (з доплатою за терміновість).',
+    'process.note2.title':'Не можете приїхати?','process.note2.text':'Ідею й тканини узгоджуємо дистанційно, а Тетяна Верба особисто приїжджає до вас для примірок (за умови покриття дорожніх витрат).',
+    'testimonials.eyebrow':'Відгуки','testimonials.heading':'Історії, які надихають нас продовжувати',
+    'testimonials.t1.quote':'«Тетяна почула саме те, що я хотіла сказати без слів. Сукня стала моєю другою шкірою.»','testimonials.t1.name':'Олена, клієнтка',
+    'testimonials.t2.quote':'«Костюм від VERBA сидить так, ніби його виточили під мене. Цей рівень відчувається одразу.»','testimonials.t2.name':'Максим, клієнт',
+    'testimonials.t3.quote':'«Це не просто пошиття. Це турбота, час і щирість на кожному етапі.»','testimonials.t3.name':'Юлія, клієнтка',
+    'faq.eyebrow':'FAQ','faq.heading':'Питання, які нам ставлять найчастіше',
+    'faq.q1.q':'Скільки триває виготовлення одягу?','faq.q1.a':'Виготовлення однієї речі може займати від кількох годин до кількох тижнів — залежно від складності. Якщо вбрання потрібне терміново, можливе виготовлення поза чергою з доплатою.',
+    'faq.q2.q':'Скільки коштує індивідуальне пошиття?','faq.q2.a':'Вартість залежить від рівня внутрішньої обробки, складності крою та деталізації — тому кожен проєкт ми обговорюємо індивідуально.',
+    'faq.q3.q':'Як відбувається перший контакт?','faq.q3.a':'Для швидкості й зручності спілкування різними мовами перший контакт відбувається в Telegram або WhatsApp. Ви можете одразу надіслати фото, поставити запитання чи передати мірки.',
+    'faq.q4.q':'Скільки примірок зазвичай потрібно?','faq.q4.a':'Залежить від складності фасону — від однієї швидкої звірки по фото до кількох особистих або поштових примірок для складного крою.',
+    'faq.q5.q':'Що робити, якщо я не можу приїхати особисто?','faq.q5.a':'Ідею та тканини узгоджуємо дистанційно. За потреби Тетяна Верба особисто приїжджає до вас для примірок і підгонки — за умови покриття дорожніх витрат.',
+    'faq.q6.q':'Який у вас графік роботи?','faq.q6.a':'Прийом клієнтів та консультації відбуваються за попереднім записом.',
+    'feedback.eyebrow':'Зворотній зв\'язок','feedback.heading':'Розкажіть нам про вашу ідею',
+    'feedback.text':'Заповніть форму — і ми зв\'яжемось з вами протягом дня, щоб обговорити деталі та призначити першу консультацію.',
+    'feedback.firstname':'Ім\'я*','feedback.firstname.ph':'Ваше ім\'я','feedback.lastname':'Прізвище*','feedback.lastname.ph':'Ваше прізвище',
+    'feedback.email':'Email*','feedback.phone':'Телефон*','feedback.message':'Повідомлення*','feedback.message.ph':'Розкажіть про ваш задум, подію чи фасон, який ви маєте на увазі',
+    'feedback.submit':'Надіслати','feedback.success':'Дякуємо! Ми зв\'яжемось з вами найближчим часом.',
+    'contact.eyebrow':'Контакти','contact.heading':'Завжди на зв\'язку',
+    'contact.text':'Перший контакт відбувається у Telegram або WhatsApp — надішліть фото, запитання чи мірки, і ми відповімо протягом дня.',
+    'contact.telegram.label':'Telegram','contact.whatsapp.label':'WhatsApp','contact.email.label':'Email',
+    'contact.location.label':'Ательє','contact.location.value':'Німеччина · Україна',
+    'footer.tagline':'Індивідуальне пошиття з 2003 року. Україна · Німеччина.',
+    'footer.nav':'Навігація','footer.social':'Соцмережі','footer.copyright':'© VERBA. Усі права захищені.','footer.credit':'Дизайн та розробка сайту',
+  },
+  en: {
+    'nav.services':'Services','nav.portfolio':'Portfolio','nav.about':'About us','nav.process':'Process',
+    'nav.testimonials':'Testimonials','nav.faq':'FAQ','nav.contact':'Contact','nav.cta':'Book now',
+    'hero.eyebrow':'Bespoke tailoring atelier',
+    'hero.headline':'Trust, quality and your uniqueness',
+    'hero.subtitle':'Flawless classic, evening and everyday clothing with a perfect fit — for women, men and children. Designed to highlight your status, inspire, and captivate.',
+    'hero.cta':'Book a consultation','hero.cta2':'Meet the founder',
+    'hero.card':'"Every piece begins with a conversation and trust"',
+    'services.eyebrow':'Services',
+    'services.heading':'Clothing made personally for you — from idea to the final stitch',
+    'services.button':'Our work',
+    'services.subtitle':'Every detail is agreed with you personally — from fabric to the final fitting.',
+    'services.s1.title':'Women\'s wardrobe',
+    'services.s1.desc':'One-of-a-kind evening, prom and wedding gowns. Classic business suits, trousers, skirts and blouses. Exclusive coats and jackets, cozy knitwear, everyday and sportswear.',
+    'services.s2.title':'Men\'s wardrobe',
+    'services.s2.desc':'Classic men\'s suits and tuxedos. Elegant coats, jackets and trousers made to your exact measurements, with attention to every detail.',
+    'services.s3.title':'Special & corporate orders',
+    'services.s3.desc':'Ball and stage costumes. Premium corporate uniforms — for hotel, restaurant and medical staff.',
+    'portfolio.eyebrow':'Portfolio',
+    'portfolio.heading':'Work we\'re genuinely proud of',
+    'portfolio.p1.title':'Evening gown','portfolio.p1.tag':'Silk','portfolio.p1.desc':'A one-of-a-kind gown for an unforgettable evening — draped silk and a flawless fit.',
+    'portfolio.p2.title':'Wedding gown','portfolio.p2.tag':'Lace','portfolio.p2.desc':'A corseted silhouette, hand-finished lace detailing and impeccable inner tailoring throughout.',
+    'portfolio.p3.title':'Women\'s business suit','portfolio.p3.tag':'Wool','portfolio.p3.desc':'A crisp silhouette and flawless fit that brings confidence to every important negotiation.',
+    'portfolio.p4.title':'Men\'s suit','portfolio.p4.tag':'Tweed','portfolio.p4.desc':'Precise cutting to your exact measurements, with attention to every stitch and detail.',
+    'portfolio.p5.title':'Exclusive coat','portfolio.p5.tag':'Cashmere','portfolio.p5.desc':'Outerwear that combines warmth, status and a refined silhouette for the cold season.',
+    'portfolio.p6.title':'Knit sweater','portfolio.p6.tag':'Knitwear','portfolio.p6.desc':'A cozy hand-knit sweater in soft wool for elevated, comfortable everyday style.',
+    'portfolio.cta':'Order something similar',
+    'cta.eyebrow':'Next step','cta.heading':'Ready to create your story?',
+    'cta.text':'Message us on Telegram or WhatsApp — we\'ll get back to you within the day to arrange your first consultation.',
+    'cta.button1':'Fill in the form','cta.button2':'Message on Telegram',
+    'about.eyebrow':'About us',
+    'about.heading':'We don\'t just make clothes — we create your personal success stories.',
+    'about.body':'Tetiana Verba, founder and lead designer of the VERBA brand, has been creating clothing since 2003. Having built a 20+ year brand history in Ukraine, Tetiana now develops VERBA in Germany — offering private visits, meetings in a cozy atelier, or online consultations. A full cycle: from idea, sketch and original construction — to cutting, fittings and flawless tailoring.',
+    'about.button':'How we work','about.stat':'years of experience',
+    'process.eyebrow':'How we work','process.heading':'A process that flexibly adapts to you',
+    'process.subtitle':'A transparent process at every stage — from the first idea to the final stitch.','process.cta':'Discuss your project',
+    'process.s1.title':'Idea & concept','process.s1.desc':'We discuss the silhouette, fabrics and details. Come with your own idea or photo — or we\'ll design a look from scratch based on your wishes.',
+    'process.s2.title':'Taking measurements','process.s2.desc':'A personal meeting or online consultation, where we give simple, precise instructions for measuring yourself accurately.',
+    'process.s3.title':'Fitting & adjustment','process.s3.desc':'For simple silhouettes — a quick check by photo or video. For complex cuts — a fitting by post with detailed photo and video review.',
+    'process.s4.title':'The finished piece','process.s4.desc':'You receive a garment with a flawless fit. You choose the finishing level — from neat classic to couture, with natural silk, lace and personal embroidery.',
+    'process.note1.title':'Need it urgently?','process.note1.text':'Rush production is available for a specific event, for an additional fee.',
+    'process.note2.title':'Can\'t travel to us?','process.note2.text':'We agree on the idea and fabrics remotely, and Tetiana Verba personally travels to you for fittings (travel expenses covered by the client).',
+    'testimonials.eyebrow':'Testimonials','testimonials.heading':'Stories that keep us inspired',
+    'testimonials.t1.quote':'"Tetiana heard exactly what I wanted to say without words. The dress became my second skin."','testimonials.t1.name':'Olena, client',
+    'testimonials.t2.quote':'"The VERBA suit fits as if it were carved for me. You feel that level of craft instantly."','testimonials.t2.name':'Maksym, client',
+    'testimonials.t3.quote':'"This isn\'t just tailoring. It\'s care, time and sincerity at every stage."','testimonials.t3.name':'Yuliia, client',
+    'faq.eyebrow':'FAQ','faq.heading':'Questions we hear most often',
+    'faq.q1.q':'How long does it take to make a garment?','faq.q1.a':'Making a single piece can take from a few hours to a few weeks, depending on complexity. If you need it urgently, rush production is available for an additional fee.',
+    'faq.q2.q':'How much does bespoke tailoring cost?','faq.q2.a':'The price depends on the finishing level, cutting complexity and detailing — so we discuss each project individually.',
+    'faq.q3.q':'How does the first contact happen?','faq.q3.a':'For speed and ease across languages, first contact happens via Telegram or WhatsApp. You can send photos, ask questions, or share your measurements right away.',
+    'faq.q4.q':'How many fittings are usually needed?','faq.q4.a':'It depends on the complexity of the design — from a single quick photo check to several in-person or postal fittings for complex cuts.',
+    'faq.q5.q':'What if I can\'t come in person?','faq.q5.a':'We agree on the idea and fabrics remotely. If needed, Tetiana Verba personally travels to you for fittings and adjustments — travel expenses covered by the client.',
+    'faq.q6.q':'What are your working hours?','faq.q6.a':'Client consultations take place by appointment only.',
+    'feedback.eyebrow':'Get in touch','feedback.heading':'Tell us about your idea',
+    'feedback.text':'Fill in the form and we\'ll get back to you within the day to discuss the details and arrange your first consultation.',
+    'feedback.firstname':'First name*','feedback.firstname.ph':'Your first name','feedback.lastname':'Last name*','feedback.lastname.ph':'Your last name',
+    'feedback.email':'Email*','feedback.phone':'Phone*','feedback.message':'Message*','feedback.message.ph':'Tell us about your idea, occasion, or the silhouette you have in mind',
+    'feedback.submit':'Submit','feedback.success':'Thank you! We\'ll be in touch shortly.',
+    'contact.eyebrow':'Contact','contact.heading':'Always in touch',
+    'contact.text':'First contact happens via Telegram or WhatsApp — send a photo, question or your measurements, and we\'ll reply within the day.',
+    'contact.telegram.label':'Telegram','contact.whatsapp.label':'WhatsApp','contact.email.label':'Email',
+    'contact.location.label':'Atelier','contact.location.value':'Germany · Ukraine',
+    'footer.tagline':'Bespoke tailoring since 2003. Ukraine · Germany.',
+    'footer.nav':'Navigation','footer.social':'Social','footer.copyright':'© VERBA. All rights reserved.','footer.credit':'Website design & development',
+  },
+  de: {
+    'nav.services':'Leistungen','nav.portfolio':'Portfolio','nav.about':'Über uns','nav.process':'Ablauf',
+    'nav.testimonials':'Referenzen','nav.faq':'FAQ','nav.contact':'Kontakt','nav.cta':'Termin buchen',
+    'hero.eyebrow':'Atelier für Maßschneiderei',
+    'hero.headline':'Vertrauen, Qualität und Ihre Einzigartigkeit',
+    'hero.subtitle':'Makellose klassische, elegante und alltägliche Kleidung mit perfekter Passform — für Damen, Herren und Kinder. Sie unterstreicht Status, inspiriert und verzaubert.',
+    'hero.cta':'Beratung vereinbaren','hero.cta2':'Gründerin kennenlernen',
+    'hero.card':'„Jedes Stück beginnt mit einem Gespräch und Vertrauen"',
+    'services.eyebrow':'Leistungen',
+    'services.heading':'Kleidung, die persönlich für Sie entsteht — von der Idee bis zum letzten Stich',
+    'services.button':'Unsere Arbeiten',
+    'services.subtitle':'Jedes Detail wird persönlich mit Ihnen abgestimmt — vom Stoff bis zur letzten Anprobe.',
+    'services.s1.title':'Damengarderobe',
+    'services.s1.desc':'Einzigartige Abend-, Ball- und Brautkleider. Klassische Businessanzüge, Hosen, Röcke und Blusen. Exklusive Mäntel und Jacken, gemütliche Strickwaren, Alltags- und Sportbekleidung.',
+    'services.s2.title':'Herrengarderobe',
+    'services.s2.desc':'Klassische Herrenanzüge und Smokings. Elegante Mäntel, Sakkos und Hosen nach Maß, mit Liebe zum Detail gefertigt.',
+    'services.s3.title':'Sonder- und Firmenaufträge',
+    'services.s3.desc':'Ball- und Bühnenkostüme. Premium-Firmenbekleidung — für Personal in Hotels, Restaurants und medizinischen Einrichtungen.',
+    'portfolio.eyebrow':'Portfolio',
+    'portfolio.heading':'Arbeiten, auf die wir wirklich stolz sind',
+    'portfolio.p1.title':'Abendkleid','portfolio.p1.tag':'Seide','portfolio.p1.desc':'Ein Unikat-Kleid für einen unvergesslichen Auftritt — drapierte Seide und eine makellose Passform.',
+    'portfolio.p2.title':'Brautkleid','portfolio.p2.tag':'Spitze','portfolio.p2.desc':'Korsett-Silhouette, handgefertigte Spitzendetails und tadellose Innenverarbeitung jedes Details.',
+    'portfolio.p3.title':'Damen-Business-Anzug','portfolio.p3.tag':'Wolle','portfolio.p3.desc':'Klare Silhouette und perfekte Passform, die bei jedem wichtigen Termin Selbstvertrauen schenkt.',
+    'portfolio.p4.title':'Herrenanzug','portfolio.p4.tag':'Tweed','portfolio.p4.desc':'Präziser Schnitt nach Maß, mit Aufmerksamkeit für jeden Stich und jedes Detail.',
+    'portfolio.p5.title':'Exklusiver Mantel','portfolio.p5.tag':'Kaschmir','portfolio.p5.desc':'Oberbekleidung, die Wärme, Status und eine edle Silhouette für die kalte Jahreszeit vereint.',
+    'portfolio.p6.title':'Strickpullover','portfolio.p6.tag':'Strickware','portfolio.p6.desc':'Ein kuscheliger handgestrickter Pullover aus weicher Wolle für gehobenen, bequemen Alltagsstil.',
+    'portfolio.cta':'Etwas Ähnliches bestellen',
+    'cta.eyebrow':'Nächster Schritt','cta.heading':'Bereit, Ihre Geschichte zu gestalten?',
+    'cta.text':'Schreiben Sie uns auf Telegram oder WhatsApp — wir melden uns noch am selben Tag für Ihre erste Beratung.',
+    'cta.button1':'Formular ausfüllen','cta.button2':'Auf Telegram schreiben',
+    'about.eyebrow':'Über uns',
+    'about.heading':'Wir nähen nicht einfach Kleidung — wir schaffen Ihre persönlichen Erfolgsgeschichten.',
+    'about.body':'Tetiana Verba, Gründerin und Chefdesignerin der Marke VERBA, fertigt seit 2003 Kleidung an. Nach über 20 Jahren Markengeschichte in der Ukraine entwickelt Tetiana die Marke heute in Deutschland weiter — mit persönlichen Terminen, Treffen im gemütlichen Atelier oder online. Ein vollständiger Zyklus: von der Idee, der Skizze und dem Schnittentwurf — bis zum Zuschnitt, den Anproben und der makellosen Fertigung.',
+    'about.button':'So arbeiten wir','about.stat':'Jahre Erfahrung',
+    'process.eyebrow':'So arbeiten wir','process.heading':'Ein Ablauf, der sich flexibel an Sie anpasst',
+    'process.subtitle':'Ein transparenter Ablauf in jeder Phase — von der ersten Idee bis zum letzten Stich.','process.cta':'Ihr Projekt besprechen',
+    'process.s1.title':'Idee & Konzept','process.s1.desc':'Wir besprechen Schnitt, Stoffe und Details. Kommen Sie mit eigener Idee oder Foto — oder wir entwerfen einen Look ganz nach Ihren Wünschen.',
+    'process.s2.title':'Maßnahme','process.s2.desc':'Ein persönliches Treffen oder eine Online-Beratung, bei der wir einfache, präzise Anleitungen zum selbstständigen Maßnehmen geben.',
+    'process.s3.title':'Anprobe & Anpassung','process.s3.desc':'Bei einfachen Schnitten genügt ein schneller Abgleich per Foto oder Video. Bei komplexen Schnitten erfolgt die Anprobe per Post mit ausführlichem Foto- und Videoabgleich.',
+    'process.s4.title':'Das fertige Stück','process.s4.desc':'Sie erhalten ein Kleidungsstück mit makelloser Passform. Die Verarbeitung wählen Sie selbst — von klassisch sauber bis Couture, mit Naturseide, Spitze und persönlicher Stickerei.',
+    'process.note1.title':'Eilauftrag nötig?','process.note1.text':'Eine Fertigung außerhalb der Warteschlange ist für konkrete Anlässe gegen Aufpreis möglich.',
+    'process.note2.title':'Können Sie nicht anreisen?','process.note2.text':'Idee und Stoffe stimmen wir aus der Ferne ab, und Tetiana Verba reist bei Bedarf persönlich zu Ihnen für die Anproben (Reisekosten trägt der Kunde).',
+    'testimonials.eyebrow':'Referenzen','testimonials.heading':'Geschichten, die uns antreiben',
+    'testimonials.t1.quote':'„Tetiana hat genau verstanden, was ich ohne Worte sagen wollte. Das Kleid wurde zu meiner zweiten Haut."','testimonials.t1.name':'Olena, Kundin',
+    'testimonials.t2.quote':'„Der VERBA-Anzug sitzt, als wäre er für mich gemeißelt. Dieses Niveau spürt man sofort."','testimonials.t2.name':'Maksym, Kunde',
+    'testimonials.t3.quote':'„Das ist nicht nur Schneiderei. Das ist Fürsorge, Zeit und Ehrlichkeit in jeder Phase."','testimonials.t3.name':'Yuliia, Kundin',
+    'faq.eyebrow':'FAQ','faq.heading':'Die häufigsten Fragen',
+    'faq.q1.q':'Wie lange dauert die Anfertigung?','faq.q1.a':'Die Anfertigung eines Stücks kann von wenigen Stunden bis zu mehreren Wochen dauern, je nach Komplexität. Bei Eilbedarf ist eine Fertigung außerhalb der Warteschlange gegen Aufpreis möglich.',
+    'faq.q2.q':'Was kostet eine Maßanfertigung?','faq.q2.a':'Der Preis hängt vom Verarbeitungsniveau, der Schnittkomplexität und den Details ab — daher besprechen wir jedes Projekt individuell.',
+    'faq.q3.q':'Wie läuft der erste Kontakt ab?','faq.q3.a':'Für schnelle, sprachlich flexible Kommunikation erfolgt der erste Kontakt über Telegram oder WhatsApp. Sie können sofort Fotos senden, Fragen stellen oder Ihre Maße mitteilen.',
+    'faq.q4.q':'Wie viele Anproben sind nötig?','faq.q4.a':'Das hängt von der Komplexität des Schnitts ab — von einem schnellen Fotoabgleich bis zu mehreren persönlichen oder postalischen Anproben bei komplexen Schnitten.',
+    'faq.q5.q':'Was, wenn ich nicht persönlich kommen kann?','faq.q5.a':'Idee und Stoffe stimmen wir aus der Ferne ab. Bei Bedarf reist Tetiana Verba persönlich zu Ihnen für Anproben und Anpassungen — Reisekosten trägt der Kunde.',
+    'faq.q6.q':'Wie sind Ihre Öffnungszeiten?','faq.q6.a':'Kundentermine und Beratungen finden ausschließlich nach Vereinbarung statt.',
+    'feedback.eyebrow':'Kontaktformular','feedback.heading':'Erzählen Sie uns von Ihrer Idee',
+    'feedback.text':'Füllen Sie das Formular aus — wir melden uns noch am selben Tag, um Details zu besprechen und Ihre erste Beratung zu vereinbaren.',
+    'feedback.firstname':'Vorname*','feedback.firstname.ph':'Ihr Vorname','feedback.lastname':'Nachname*','feedback.lastname.ph':'Ihr Nachname',
+    'feedback.email':'E-Mail*','feedback.phone':'Telefon*','feedback.message':'Nachricht*','feedback.message.ph':'Erzählen Sie uns von Ihrer Idee, dem Anlass oder dem gewünschten Schnitt',
+    'feedback.submit':'Absenden','feedback.success':'Vielen Dank! Wir melden uns in Kürze bei Ihnen.',
+    'contact.eyebrow':'Kontakt','contact.heading':'Immer erreichbar',
+    'contact.text':'Der erste Kontakt erfolgt über Telegram oder WhatsApp — senden Sie ein Foto, eine Frage oder Ihre Maße, wir antworten noch am selben Tag.',
+    'contact.telegram.label':'Telegram','contact.whatsapp.label':'WhatsApp','contact.email.label':'E-Mail',
+    'contact.location.label':'Atelier','contact.location.value':'Deutschland · Ukraine',
+    'footer.tagline':'Maßschneiderei seit 2003. Ukraine · Deutschland.',
+    'footer.nav':'Navigation','footer.social':'Soziales','footer.copyright':'© VERBA. Alle Rechte vorbehalten.','footer.credit':'Webdesign & Entwicklung',
+  }
+};
+
+function applyLang(lang){
+  const dict = I18N[lang];
+  document.documentElement.lang = lang;
+  document.querySelectorAll('[data-i18n]').forEach(el=>{
+    const key = el.getAttribute('data-i18n');
+    if(dict[key]!==undefined) el.textContent = dict[key];
+  });
+  document.querySelectorAll('[data-i18n-html]').forEach(el=>{
+    const key = el.getAttribute('data-i18n-html');
+    if(dict[key]!==undefined) el.innerHTML = dict[key];
+  });
+  document.querySelectorAll('[data-i18n-placeholder]').forEach(el=>{
+    const key = el.getAttribute('data-i18n-placeholder');
+    if(dict[key]!==undefined) el.setAttribute('placeholder', dict[key]);
+  });
+  document.querySelectorAll('.lang-btn').forEach(b=>{
+    b.classList.toggle('active', b.getAttribute('data-lang-btn')===lang);
+  });
+  document.querySelectorAll('.lang-option').forEach(opt=>{
+    const isActive = opt.getAttribute('data-lang-option')===lang;
+    opt.classList.toggle('active', isActive);
+    opt.setAttribute('aria-selected', String(isActive));
+  });
+  const triggerFlag = document.getElementById('lang-trigger-flag');
+  const activeOptionFlag = document.querySelector(`.lang-option[data-lang-option="${lang}"] .lang-flag`);
+  if(triggerFlag && activeOptionFlag) triggerFlag.innerHTML = activeOptionFlag.innerHTML;
+  localStorage.setItem('verba-lang', lang);
+}
+
+document.querySelectorAll('[data-lang-btn]').forEach(btn=>{
+  btn.addEventListener('click', ()=> applyLang(btn.getAttribute('data-lang-btn')));
+});
+
+/* lang dropdown */
+const langTrigger = document.getElementById('lang-trigger');
+const langPanel = document.getElementById('lang-panel');
+const langChevron = document.getElementById('lang-chevron');
+const closeLangPanel = ()=>{
+  langPanel.classList.add('closed');
+  langTrigger.setAttribute('aria-expanded', 'false');
+  langChevron.style.transform = '';
+};
+langTrigger.addEventListener('click', (e)=>{
+  e.stopPropagation();
+  const isClosed = langPanel.classList.contains('closed');
+  langPanel.classList.toggle('closed');
+  langTrigger.setAttribute('aria-expanded', String(isClosed));
+  langChevron.style.transform = isClosed ? 'rotate(180deg)' : '';
+});
+document.querySelectorAll('.lang-option').forEach(opt=>{
+  opt.addEventListener('click', ()=>{
+    applyLang(opt.getAttribute('data-lang-option'));
+    closeLangPanel();
+  });
+});
+document.addEventListener('click', (e)=>{
+  if(!document.getElementById('lang-dropdown').contains(e.target)) closeLangPanel();
+});
+document.addEventListener('keydown', (e)=>{ if(e.key === 'Escape') closeLangPanel(); });
+
+const savedLang = localStorage.getItem('verba-lang') || 'uk';
+applyLang(savedLang);
+
+/* reveal on scroll */
+const io = new IntersectionObserver((entries)=>{
+  entries.forEach(e=>{ if(e.isIntersecting){ e.target.classList.add('visible'); io.unobserve(e.target); } });
+}, { threshold: 0.15, rootMargin: '0px 0px -8% 0px' });
+document.querySelectorAll('.reveal').forEach(el=> io.observe(el));
+
+/* mobile menu */
+const menu = document.getElementById('mobile-menu');
+document.getElementById('menu-toggle').addEventListener('click', ()=> menu.classList.remove('closed'));
+document.getElementById('menu-close').addEventListener('click', ()=> menu.classList.add('closed'));
+menu.querySelectorAll('a').forEach(a=> a.addEventListener('click', ()=> menu.classList.add('closed')));
+
+/* header background on scroll */
+const header = document.querySelector('header');
+const updateHeader = ()=>{
+  if(window.scrollY > 40){ header.classList.add('backdrop-blur-md'); }
+};
+window.addEventListener('scroll', updateHeader);
+</script>
+
+</body>
+</html>
