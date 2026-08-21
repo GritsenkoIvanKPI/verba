@@ -998,39 +998,17 @@
 <!-- ============ FEEDBACK FORM ============ -->
 <section id="feedback" class="relative bg-sky py-20 md:py-28">
   <div class="mx-auto max-w-[1400px] px-6 md:px-10">
-    <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-20">
-      <div class="lg:col-span-5 reveal">
-        <p class="tracking-label uppercase text-ink/55 text-xs md:text-sm font-semibold mb-5" data-i18n="feedback.eyebrow">Зворотній зв'язок</p>
-        <h2 class="font-display text-4xl md:text-5xl leading-[1.08] text-ink" data-i18n="feedback.heading">Розкажіть нам про свій проєкт</h2>
-        <p class="mt-6 text-ink/70 leading-[1.7] max-w-md" data-i18n="feedback.text">Заповніть форму - і ми зв'яжемось з вами протягом дня, щоб обговорити деталі та призначити першу консультацію.</p>
+    <div class="max-w-2xl reveal">
+      <p class="tracking-label uppercase text-ink/55 text-xs md:text-sm font-semibold mb-5" data-i18n="feedback.eyebrow">Зворотній зв'язок</p>
+      <h2 class="font-display text-4xl md:text-5xl leading-[1.08] text-ink" data-i18n="feedback.heading">Розкажіть нам про свій проєкт</h2>
+      <p class="mt-6 text-ink/70 leading-[1.7] max-w-md" data-i18n="feedback.text">Напишіть нам у WhatsApp - і Тетяна Верба особисто відповість вам протягом дня.</p>
+      <div class="mt-9">
+        <a href="https://wa.me/490000000000" target="_blank" rel="noopener" class="btn-pill btn-dark inline-flex items-center gap-3">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M12 2C6.477 2 2 6.477 2 12c0 1.86.505 3.6 1.382 5.096L2 22l5.058-1.354A9.94 9.94 0 0 0 12 22c5.523 0 10-4.477 10-10S17.523 2 12 2Zm0 18a7.94 7.94 0 0 1-4.06-1.114l-.29-.17-3.008.805.808-2.94-.19-.302A7.94 7.94 0 1 1 12 20Zm4.36-5.6c-.24-.12-1.42-.7-1.64-.78-.22-.08-.38-.12-.54.12-.16.24-.62.78-.76.94-.14.16-.28.18-.52.06-.24-.12-1.01-.372-1.924-1.187-.711-.634-1.19-1.417-1.33-1.657-.14-.24-.015-.37.105-.49.108-.108.24-.28.36-.42.12-.14.16-.24.24-.4.08-.16.04-.3-.02-.42-.06-.12-.54-1.3-.74-1.78-.195-.468-.393-.404-.54-.412-.14-.007-.3-.009-.46-.009-.16 0-.42.06-.64.3-.22.24-.84.82-.84 2s.86 2.32.98 2.48c.12.16 1.694 2.586 4.104 3.626.573.247 1.02.395 1.369.505.575.183 1.098.157 1.512.095.461-.069 1.42-.58 1.62-1.14.2-.56.2-1.04.14-1.14-.06-.1-.22-.16-.46-.28Z" fill="currentColor"/></svg>
+          <span data-i18n="feedback.whatsapp">Написати Тетяні Верба</span>
+        </a>
+        <p class="mt-4 text-ink/55 text-sm" data-i18n="feedback.hint">Ви можете написати своє питання</p>
       </div>
-
-      <form class="lg:col-span-7 reveal reveal-delay-1" onsubmit="event.preventDefault(); this.reset(); document.getElementById('form-success').classList.remove('hidden');">
-        <div class="grid sm:grid-cols-2 gap-5">
-          <div>
-            <label class="block text-sm font-semibold text-ink/70 mb-2" data-i18n="feedback.firstname">Ім'я*</label>
-            <input required type="text" class="w-full rounded-2xl px-5 py-4 text-ink" data-i18n-placeholder="feedback.firstname.ph" placeholder="Ваше ім'я">
-          </div>
-          <div>
-            <label class="block text-sm font-semibold text-ink/70 mb-2" data-i18n="feedback.lastname">Прізвище*</label>
-            <input required type="text" class="w-full rounded-2xl px-5 py-4 text-ink" data-i18n-placeholder="feedback.lastname.ph" placeholder="Ваше прізвище">
-          </div>
-          <div>
-            <label class="block text-sm font-semibold text-ink/70 mb-2" data-i18n="feedback.email">Email*</label>
-            <input required type="email" class="w-full rounded-2xl px-5 py-4 text-ink" placeholder="name@mail.com">
-          </div>
-          <div>
-            <label class="block text-sm font-semibold text-ink/70 mb-2" data-i18n="feedback.phone">Телефон*</label>
-            <input required type="tel" class="w-full rounded-2xl px-5 py-4 text-ink" placeholder="+49 000 000 000">
-          </div>
-          <div class="sm:col-span-2">
-            <label class="block text-sm font-semibold text-ink/70 mb-2" data-i18n="feedback.message">Повідомлення*</label>
-            <textarea required rows="4" class="w-full rounded-2xl px-5 py-4 text-ink resize-none" data-i18n-placeholder="feedback.message.ph" placeholder="Розкажіть про ваш задум, подію чи фасон, який ви маєте на увазі"></textarea>
-          </div>
-        </div>
-        <button type="submit" class="btn-pill btn-dark mt-7" data-i18n="feedback.submit">Надіслати</button>
-        <p id="form-success" class="hidden mt-5 text-ink/70 text-sm" data-i18n="feedback.success">Дякуємо! Ваше повідомлення надіслано.</p>
-      </form>
     </div>
   </div>
 </section>
@@ -1151,7 +1129,7 @@ const I18N = {
     'portfolio.cta':'Обговорити замовлення',
     'cta.eyebrow':'Наступний крок','cta.heading':'Готові створити свою історію?',
     'cta.text':'Напишіть нам у Telegram або WhatsApp - і ми зв\'яжемось з вами для першої консультації протягом дня.',
-    'cta.button1':'Заповнити форму','cta.button2':'Написати в Telegram',
+    'cta.button1':'Написати в WhatsApp','cta.button2':'Написати в Telegram',
     'about.eyebrow':'Про нас',
     'about.heading':'Ми шиємо не просто одяг - ми створюємо ваші особисті історії успіху.',
     'about.body':'Засновниця та головний дизайнер-модельєр бренду VERBA Тетяна Верба створює одяг з 2003 року. Побудувавши понад 20-річну історію бренду в Україні, сьогодні Тетяна розвиває VERBA в Німеччині - індивідуальні візити, зустрічі в затишній камерній майстерні або онлайн. Повний цикл: від ідеї, ескізу та авторського конструювання - до крою, примірок і бездоганного пошиття.',
@@ -1177,10 +1155,8 @@ const I18N = {
     'faq.q5.q':'Що робити, якщо я не можу приїхати особисто?','faq.q5.a':'Ідею та тканини узгоджуємо дистанційно. За потреби Тетяна Верба особисто приїжджає до вас для примірок і підгонки - за умови покриття дорожніх витрат.',
     'faq.q6.q':'Який у вас графік роботи?','faq.q6.a':'Прийом клієнтів та консультації відбуваються за попереднім записом.',
     'feedback.eyebrow':'Зворотній зв\'язок','feedback.heading':'Розкажіть нам про свій проєкт',
-    'feedback.text':'Заповніть форму - і ми зв\'яжемось з вами протягом дня, щоб обговорити деталі та призначити першу консультацію.',
-    'feedback.firstname':'Ім\'я*','feedback.firstname.ph':'Ваше ім\'я','feedback.lastname':'Прізвище*','feedback.lastname.ph':'Ваше прізвище',
-    'feedback.email':'Email*','feedback.phone':'Телефон*','feedback.message':'Повідомлення*','feedback.message.ph':'Розкажіть про ваш задум, подію чи фасон, який ви маєте на увазі',
-    'feedback.submit':'Надіслати','feedback.success':'Дякуємо! Ваше повідомлення надіслано.',
+    'feedback.text':'Напишіть нам у WhatsApp - і Тетяна Верба особисто відповість вам протягом дня.',
+    'feedback.whatsapp':'Написати Тетяні Верба','feedback.hint':'Ви можете написати своє питання',
     'contact.eyebrow':'Контакти','contact.heading':'Завжди на зв\'язку',
     'contact.text':'Перший контакт відбувається у Telegram або WhatsApp - надішліть фото, запитання чи мірки, і ми відповімо протягом дня.',
     'contact.telegram.label':'Telegram','contact.whatsapp.label':'WhatsApp','contact.email.label':'Email',
@@ -1232,7 +1208,7 @@ const I18N = {
     'portfolio.cta':'Discuss the order',
     'cta.eyebrow':'Next step','cta.heading':'Ready to create your story?',
     'cta.text':'Message us on Telegram or WhatsApp - we\'ll get back to you within the day to arrange your first consultation.',
-    'cta.button1':'Fill in the form','cta.button2':'Message on Telegram',
+    'cta.button1':'Message on WhatsApp','cta.button2':'Message on Telegram',
     'about.eyebrow':'About us',
     'about.heading':'We don\'t just make clothes - we create your personal success stories.',
     'about.body':'Tetiana Verba, founder and lead designer of the VERBA brand, has been creating clothing since 2003. Having built a 20+ year brand history in Ukraine, Tetiana now develops VERBA in Germany - offering private visits, meetings in a cozy workshop, or online consultations. A full cycle: from idea, sketch and original construction - to cutting, fittings and flawless tailoring.',
@@ -1258,10 +1234,8 @@ const I18N = {
     'faq.q5.q':'What if I can\'t come in person?','faq.q5.a':'We agree on the concept and fabrics remotely. If needed, Tetiana Verba personally travels to you for fittings and adjustments - travel expenses covered by the client.',
     'faq.q6.q':'What are your working hours?','faq.q6.a':'Client consultations take place by appointment only.',
     'feedback.eyebrow':'Get in touch','feedback.heading':'Tell us about your project',
-    'feedback.text':'Fill in the form and we\'ll get back to you within the day to discuss the details and arrange your first consultation.',
-    'feedback.firstname':'First name*','feedback.firstname.ph':'Your first name','feedback.lastname':'Last name*','feedback.lastname.ph':'Your last name',
-    'feedback.email':'Email*','feedback.phone':'Phone*','feedback.message':'Message*','feedback.message.ph':'Tell us about your concept, occasion, or the silhouette you have in mind',
-    'feedback.submit':'Submit','feedback.success':'Thank you! Your message has been sent.',
+    'feedback.text':'Message us on WhatsApp - Tetiana Verba will reply to you personally within the day.',
+    'feedback.whatsapp':'Message Tetiana Verba','feedback.hint':'You can write your question',
     'contact.eyebrow':'Contact','contact.heading':'Always in touch',
     'contact.text':'First contact happens via Telegram or WhatsApp - send a photo, question or your measurements, and we\'ll reply within the day.',
     'contact.telegram.label':'Telegram','contact.whatsapp.label':'WhatsApp','contact.email.label':'Email',
@@ -1313,7 +1287,7 @@ const I18N = {
     'portfolio.cta':'Bestellung besprechen',
     'cta.eyebrow':'Nächster Schritt','cta.heading':'Bereit, Ihre Geschichte zu gestalten?',
     'cta.text':'Schreiben Sie uns auf Telegram oder WhatsApp - wir melden uns noch am selben Tag für Ihre erste Beratung.',
-    'cta.button1':'Formular ausfüllen','cta.button2':'Auf Telegram schreiben',
+    'cta.button1':'Auf WhatsApp schreiben','cta.button2':'Auf Telegram schreiben',
     'about.eyebrow':'Über uns',
     'about.heading':'Wir nähen nicht einfach Kleidung - wir schaffen Ihre persönlichen Erfolgsgeschichten.',
     'about.body':'Tetiana Verba, Gründerin und Chefdesignerin der Marke VERBA, fertigt seit 2003 Kleidung an. Nach über 20 Jahren Markengeschichte in der Ukraine entwickelt Tetiana die Marke heute in Deutschland weiter - mit persönlichen Terminen, Treffen in der gemütlichen Werkstatt oder online. Ein vollständiger Zyklus: von der Idee, der Skizze und dem Schnittentwurf - bis zum Zuschnitt, den Anproben und der makellosen Fertigung.',
@@ -1338,11 +1312,9 @@ const I18N = {
     'faq.q4.q':'Wie viele Anproben sind nötig?','faq.q4.a':'Das hängt von der Komplexität des Schnitts ab - von einem schnellen Fotoabgleich bis zu mehreren persönlichen oder postalischen Anproben bei komplexen Schnitten.',
     'faq.q5.q':'Was, wenn ich nicht persönlich kommen kann?','faq.q5.a':'Konzept und Stoffe stimmen wir aus der Ferne ab. Bei Bedarf reist Tetiana Verba persönlich zu Ihnen für Anproben und Anpassungen - Reisekosten trägt der Kunde.',
     'faq.q6.q':'Wie sind Ihre Öffnungszeiten?','faq.q6.a':'Kundentermine und Beratungen finden ausschließlich nach Vereinbarung statt.',
-    'feedback.eyebrow':'Kontaktformular','feedback.heading':'Erzählen Sie uns von Ihrem Projekt',
-    'feedback.text':'Füllen Sie das Formular aus - wir melden uns noch am selben Tag, um Details zu besprechen und Ihre erste Beratung zu vereinbaren.',
-    'feedback.firstname':'Vorname*','feedback.firstname.ph':'Ihr Vorname','feedback.lastname':'Nachname*','feedback.lastname.ph':'Ihr Nachname',
-    'feedback.email':'E-Mail*','feedback.phone':'Telefon*','feedback.message':'Nachricht*','feedback.message.ph':'Erzählen Sie uns von Ihrem Konzept, dem Anlass oder dem gewünschten Schnitt',
-    'feedback.submit':'Absenden','feedback.success':'Vielen Dank! Ihre Nachricht wurde gesendet.',
+    'feedback.eyebrow':'Kontakt','feedback.heading':'Erzählen Sie uns von Ihrem Projekt',
+    'feedback.text':'Schreiben Sie uns auf WhatsApp - Tetiana Verba antwortet Ihnen persönlich noch am selben Tag.',
+    'feedback.whatsapp':'Tetiana Verba schreiben','feedback.hint':'Sie können Ihre Frage einfach hier stellen',
     'contact.eyebrow':'Kontakt','contact.heading':'Immer erreichbar',
     'contact.text':'Der erste Kontakt erfolgt über Telegram oder WhatsApp - senden Sie ein Foto, eine Frage oder Ihre Maße, wir antworten noch am selben Tag.',
     'contact.telegram.label':'Telegram','contact.whatsapp.label':'WhatsApp','contact.email.label':'E-Mail',
