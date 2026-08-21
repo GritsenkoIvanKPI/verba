@@ -195,6 +195,27 @@
   .slider-dot{ width: .5rem; height: .5rem; border-radius: 999px; background: rgba(247,242,231,0.4); transition: background-color .4s ease, transform .4s var(--ease-spring); cursor: pointer; border: none; padding: 0; }
   .slider-dot.active{ background: #c79a4f; transform: scale(1.3); }
 
+  /* category card slider (portfolio overview): peeks/reveals multiple cards per arrow click */
+  .category-slider{ position: relative; }
+  .category-slider-track{
+    display: flex; gap: 1.25rem; overflow-x: auto; scroll-snap-type: x mandatory;
+    -webkit-overflow-scrolling: touch; scrollbar-width: none; padding-bottom: 2px;
+  }
+  .category-slider-track::-webkit-scrollbar{ display: none; }
+  .category-card{
+    flex: 0 0 78%; scroll-snap-align: start; aspect-ratio: 3 / 4; border-radius: 20px;
+  }
+  @media (min-width: 640px){ .category-card{ flex-basis: 46%; } }
+  @media (min-width: 1024px){ .category-card{ flex-basis: calc((100% - 2.5rem) / 3); } }
+  .category-slider-nav{ display: flex; gap: .75rem; }
+  .cat-nav-btn{
+    width: 2.75rem; height: 2.75rem; border-radius: 999px; border: 1px solid rgba(23,19,16,0.18);
+    display: flex; align-items: center; justify-content: center; flex-shrink: 0; color: #171310;
+    transition: border-color .35s ease, background-color .35s ease, color .35s ease;
+  }
+  .cat-nav-btn:hover{ border-color: #c79a4f; background: rgba(199,154,79,0.1); }
+  .cat-nav-btn:disabled{ opacity: .3; pointer-events: none; }
+
   /* nav link underline */
   .nav-link{ position: relative; }
   .nav-link::after{
@@ -492,10 +513,90 @@
   </div>
 </section>
 
-<!-- ============ PORTFOLIO ============ -->
-<section id="portfolio" class="relative py-24 md:py-36 overflow-hidden">
+<!-- ============ PORTFOLIO OVERVIEW ============ -->
+<section id="portfolio" class="relative py-24 md:py-36">
   <div class="mx-auto max-w-[1400px] px-6 md:px-10">
-    <p class="tracking-label uppercase text-gold text-xs md:text-sm font-semibold mb-5 reveal" data-i18n="portfolio.eyebrow">Портфоліо</p>
+    <p class="tracking-label uppercase text-gold text-xs md:text-sm font-semibold mb-5 reveal" data-i18n="portfolioOverview.eyebrow">Портфоліо</p>
+    <h2 class="font-display text-4xl md:text-5xl lg:text-[3.4rem] leading-[1.08] text-ink max-w-3xl reveal reveal-delay-1" data-i18n="portfolioOverview.heading">Три напрямки нашої роботи</h2>
+    <p class="mt-6 max-w-2xl text-ink/70 leading-[1.7] reveal reveal-delay-1" data-i18n="portfolioOverview.subtitle">Оберіть категорію, щоб переглянути приклади робіт та надихнутися для власного образу.</p>
+
+    <div class="mt-16 md:mt-20 flex flex-col gap-16 md:gap-20">
+      <div class="reveal ">
+        <div class="flex flex-wrap items-end justify-between gap-6 mb-8">
+          <div>
+            <h3 class="font-display text-2xl md:text-3xl text-ink" data-i18n="portfolioOverview.cat1.title">Жіночий гардероб</h3>
+            <p class="mt-2 text-ink/70 max-w-xl" data-i18n="portfolioOverview.cat1.desc">Весільні, коктейльні та вечірні сукні</p>
+          </div>
+          <div class="category-slider-nav">
+            <button type="button" class="cat-nav-btn" data-cat-prev aria-label="Previous"><svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M10 3L5 8L10 13" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+            <button type="button" class="cat-nav-btn" data-cat-next aria-label="Next"><svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M6 3L11 8L6 13" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+          </div>
+        </div>
+        <div class="category-slider" data-cat-slider>
+          <div class="category-slider-track">
+            <div class="category-card gold-frame"><span class="gold-frame-label" data-i18n="placeholder.photo">Фото</span></div>
+            <div class="category-card gold-frame"><span class="gold-frame-label" data-i18n="placeholder.photo">Фото</span></div>
+            <div class="category-card gold-frame"><span class="gold-frame-label" data-i18n="placeholder.photo">Фото</span></div>
+            <div class="category-card gold-frame"><span class="gold-frame-label" data-i18n="placeholder.photo">Фото</span></div>
+            <div class="category-card gold-frame"><span class="gold-frame-label" data-i18n="placeholder.photo">Фото</span></div>
+            <div class="category-card gold-frame"><span class="gold-frame-label" data-i18n="placeholder.photo">Фото</span></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="reveal reveal-delay-1">
+        <div class="flex flex-wrap items-end justify-between gap-6 mb-8">
+          <div>
+            <h3 class="font-display text-2xl md:text-3xl text-ink" data-i18n="portfolioOverview.cat2.title">Діловий одяг</h3>
+            <p class="mt-2 text-ink/70 max-w-xl" data-i18n="portfolioOverview.cat2.desc">Сукні, костюми, брюки, спідниці</p>
+          </div>
+          <div class="category-slider-nav">
+            <button type="button" class="cat-nav-btn" data-cat-prev aria-label="Previous"><svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M10 3L5 8L10 13" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+            <button type="button" class="cat-nav-btn" data-cat-next aria-label="Next"><svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M6 3L11 8L6 13" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+          </div>
+        </div>
+        <div class="category-slider" data-cat-slider>
+          <div class="category-slider-track">
+            <div class="category-card gold-frame"><span class="gold-frame-label" data-i18n="placeholder.photo">Фото</span></div>
+            <div class="category-card gold-frame"><span class="gold-frame-label" data-i18n="placeholder.photo">Фото</span></div>
+            <div class="category-card gold-frame"><span class="gold-frame-label" data-i18n="placeholder.photo">Фото</span></div>
+            <div class="category-card gold-frame"><span class="gold-frame-label" data-i18n="placeholder.photo">Фото</span></div>
+            <div class="category-card gold-frame"><span class="gold-frame-label" data-i18n="placeholder.photo">Фото</span></div>
+            <div class="category-card gold-frame"><span class="gold-frame-label" data-i18n="placeholder.photo">Фото</span></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="reveal reveal-delay-2">
+        <div class="flex flex-wrap items-end justify-between gap-6 mb-8">
+          <div>
+            <h3 class="font-display text-2xl md:text-3xl text-ink" data-i18n="portfolioOverview.cat3.title">Чоловічий гардероб</h3>
+            <p class="mt-2 text-ink/70 max-w-xl" data-i18n="portfolioOverview.cat3.desc">Класичні чоловічі костюми. Пальта, піджаки та брюки, пошиті за індивідуальними мірками з увагою до кожної деталі.</p>
+          </div>
+          <div class="category-slider-nav">
+            <button type="button" class="cat-nav-btn" data-cat-prev aria-label="Previous"><svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M10 3L5 8L10 13" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+            <button type="button" class="cat-nav-btn" data-cat-next aria-label="Next"><svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M6 3L11 8L6 13" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+          </div>
+        </div>
+        <div class="category-slider" data-cat-slider>
+          <div class="category-slider-track">
+            <div class="category-card gold-frame"><span class="gold-frame-label" data-i18n="placeholder.photo">Фото</span></div>
+            <div class="category-card gold-frame"><span class="gold-frame-label" data-i18n="placeholder.photo">Фото</span></div>
+            <div class="category-card gold-frame"><span class="gold-frame-label" data-i18n="placeholder.photo">Фото</span></div>
+            <div class="category-card gold-frame"><span class="gold-frame-label" data-i18n="placeholder.photo">Фото</span></div>
+            <div class="category-card gold-frame"><span class="gold-frame-label" data-i18n="placeholder.photo">Фото</span></div>
+            <div class="category-card gold-frame"><span class="gold-frame-label" data-i18n="placeholder.photo">Фото</span></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ PORTFOLIO GALLERY (detailed) ============ -->
+<section id="portfolio-gallery" class="relative py-24 md:py-36 overflow-hidden">
+  <div class="mx-auto max-w-[1400px] px-6 md:px-10">
+    <p class="tracking-label uppercase text-gold text-xs md:text-sm font-semibold mb-5 reveal" data-i18n="portfolio.eyebrow">Детальніше</p>
     <h2 class="font-display text-4xl md:text-5xl lg:text-[3.4rem] leading-[1.08] text-ink max-w-3xl reveal reveal-delay-1" data-i18n="portfolio.heading">Роботи, якими ми щиро пишаємось</h2>
 
     <div class="mt-8 md:mt-4">
@@ -1029,7 +1130,7 @@ const I18N = {
     'services.s3.desc':'Бальні та сценічні костюми. Корпоративний одяг преміум-класу - для персоналу готелів, ресторанів та медичних закладів.',
     'services.s4.title':'Коктейльна сукня',
     'services.s4.desc':'Напівофіційне вбрання для вечірок, презентацій, весільних прийомів чи святкувань у ресторані. Довжина міді або до коліна - витончений баланс між розкішшю вечірньої сукні та повсякденністю.',
-    'portfolio.eyebrow':'Портфоліо',
+    'portfolio.eyebrow':'Детальніше',
     'portfolio.heading':'Роботи, якими ми щиро пишаємось',
     'portfolio.p1.title':'Вечірня сукня','portfolio.p1.tag':'Мереживо','portfolio.p1.desc':'Сукня в єдиному екземплярі для незабутнього виходу - вишукане мереживо та бездоганна посадка.',
     'portfolio.p2.title':'Весільна сукня','portfolio.p2.tag':'Мереживо','portfolio.p2.desc':'Корсетний силует, авторська мереживна обробка та бездоганне внутрішнє виконання кожної деталі.',
@@ -1038,6 +1139,15 @@ const I18N = {
     'portfolio.p5.title':'Ексклюзивне пальто','portfolio.p5.tag':'Вовна','portfolio.p5.desc':'Верхній одяг, що поєднує тепло, статус та вишуканий силует для холодної пори року.',
     'portfolio.p6.title':'Сценічний костюм','portfolio.p6.tag':'Атлас','portfolio.p6.desc':'Яскравий сценічний костюм з ефектним силуетом, пошитий для виступу на сцені.',
     'portfolio.p7.title':'Коктейльна сукня','portfolio.p7.desc':'Напівофіційна сукня для вечірки чи святкування - витончений баланс легкості та вишуканості.',
+    'portfolioOverview.eyebrow':'Портфоліо',
+    'portfolioOverview.heading':'Три напрямки нашої роботи',
+    'portfolioOverview.subtitle':'Оберіть категорію, щоб переглянути приклади робіт та надихнутися для власного образу.',
+    'portfolioOverview.cat1.title':'Жіночий гардероб',
+    'portfolioOverview.cat1.desc':'Весільні, коктейльні та вечірні сукні',
+    'portfolioOverview.cat2.title':'Діловий одяг',
+    'portfolioOverview.cat2.desc':'Сукні, костюми, брюки, спідниці',
+    'portfolioOverview.cat3.title':'Чоловічий гардероб',
+    'portfolioOverview.cat3.desc':'Класичні чоловічі костюми. Пальта, піджаки та брюки, пошиті за індивідуальними мірками з увагою до кожної деталі.',
     'portfolio.cta':'Обговорити замовлення',
     'cta.eyebrow':'Наступний крок','cta.heading':'Готові створити свою історію?',
     'cta.text':'Напишіть нам у Telegram або WhatsApp - і ми зв\'яжемось з вами для першої консультації протягом дня.',
@@ -1101,7 +1211,7 @@ const I18N = {
     'services.s3.desc':'Ball and stage costumes. Premium corporate uniforms - for hotel, restaurant and medical staff.',
     'services.s4.title':'Cocktail dress',
     'services.s4.desc':'Semi-formal attire for cocktail parties, presentations, wedding receptions or restaurant celebrations. Knee-length or midi - a refined balance between a luxurious evening gown and everyday wear.',
-    'portfolio.eyebrow':'Portfolio',
+    'portfolio.eyebrow':'In detail',
     'portfolio.heading':'Work we\'re genuinely proud of',
     'portfolio.p1.title':'Evening gown','portfolio.p1.tag':'Lace','portfolio.p1.desc':'A one-of-a-kind gown for an unforgettable evening - exquisite lace and a flawless fit.',
     'portfolio.p2.title':'Wedding gown','portfolio.p2.tag':'Lace','portfolio.p2.desc':'A corseted silhouette, hand-finished lace detailing and impeccable inner tailoring throughout.',
@@ -1110,6 +1220,15 @@ const I18N = {
     'portfolio.p5.title':'Exclusive coat','portfolio.p5.tag':'Wool','portfolio.p5.desc':'Outerwear that combines warmth, status and a refined silhouette for the cold season.',
     'portfolio.p6.title':'Stage costume','portfolio.p6.tag':'Satin','portfolio.p6.desc':'A striking stage costume with a dramatic silhouette, tailored for standout performances.',
     'portfolio.p7.title':'Cocktail dress','portfolio.p7.desc':'A semi-formal dress for parties and celebrations - a refined balance of ease and elegance.',
+    'portfolioOverview.eyebrow':'Portfolio',
+    'portfolioOverview.heading':'Three directions of our work',
+    'portfolioOverview.subtitle':'Choose a category to browse examples of our work and find inspiration for your own look.',
+    'portfolioOverview.cat1.title':"Women's Wardrobe",
+    'portfolioOverview.cat1.desc':'Wedding, cocktail, evening',
+    'portfolioOverview.cat2.title':'Business Wear',
+    'portfolioOverview.cat2.desc':'Dresses, suits, trousers, skirts',
+    'portfolioOverview.cat3.title':"Men's Wardrobe",
+    'portfolioOverview.cat3.desc':'Classic men’s suits. Coats, jackets and trousers, tailored to individual measurements with attention to every detail.',
     'portfolio.cta':'Discuss the order',
     'cta.eyebrow':'Next step','cta.heading':'Ready to create your story?',
     'cta.text':'Message us on Telegram or WhatsApp - we\'ll get back to you within the day to arrange your first consultation.',
@@ -1173,7 +1292,7 @@ const I18N = {
     'services.s3.desc':'Ball- und Bühnenkostüme. Premium-Firmenbekleidung - für Personal in Hotels, Restaurants und medizinischen Einrichtungen.',
     'services.s4.title':'Cocktailkleid',
     'services.s4.desc':'Halbformelle Kleidung für Cocktailpartys, Präsentationen, Hochzeitsempfänge oder Feiern im Restaurant. Knielang oder Midi - eine elegante Balance zwischen einem luxuriösen Abendkleid und Alltagskleidung.',
-    'portfolio.eyebrow':'Portfolio',
+    'portfolio.eyebrow':'Im Detail',
     'portfolio.heading':'Arbeiten, auf die wir wirklich stolz sind',
     'portfolio.p1.title':'Abendkleid','portfolio.p1.tag':'Spitze','portfolio.p1.desc':'Ein Unikat-Kleid für einen unvergesslichen Auftritt - exquisite Spitze und eine makellose Passform.',
     'portfolio.p2.title':'Brautkleid','portfolio.p2.tag':'Spitze','portfolio.p2.desc':'Korsett-Silhouette, handgefertigte Spitzendetails und tadellose Innenverarbeitung jedes Details.',
@@ -1182,6 +1301,15 @@ const I18N = {
     'portfolio.p5.title':'Exklusiver Mantel','portfolio.p5.tag':'Wolle','portfolio.p5.desc':'Oberbekleidung, die Wärme, Status und eine edle Silhouette für die kalte Jahreszeit vereint.',
     'portfolio.p6.title':'Bühnenkostüm','portfolio.p6.tag':'Satin','portfolio.p6.desc':'Ein auffälliges Bühnenkostüm mit dramatischer Silhouette, gefertigt für große Auftritte.',
     'portfolio.p7.title':'Cocktailkleid','portfolio.p7.desc':'Ein halbformelles Kleid für Partys und Feiern - eine raffinierte Balance aus Leichtigkeit und Eleganz.',
+    'portfolioOverview.eyebrow':'Portfolio',
+    'portfolioOverview.heading':'Drei Richtungen unserer Arbeit',
+    'portfolioOverview.subtitle':'Wählen Sie eine Kategorie, um Beispiele unserer Arbeiten zu sehen und sich inspirieren zu lassen.',
+    'portfolioOverview.cat1.title':'Damengarderobe',
+    'portfolioOverview.cat1.desc':'Hochzeit, Cocktail, Abend',
+    'portfolioOverview.cat2.title':'Businesskleidung',
+    'portfolioOverview.cat2.desc':'Kleider, Anzüge, Hosen, Röcke',
+    'portfolioOverview.cat3.title':'Herrengarderobe',
+    'portfolioOverview.cat3.desc':'Klassische Herrenanzüge. Mäntel, Jacken und Hosen, nach individuellem Maß mit Liebe zum Detail gefertigt.',
     'portfolio.cta':'Bestellung besprechen',
     'cta.eyebrow':'Nächster Schritt','cta.heading':'Bereit, Ihre Geschichte zu gestalten?',
     'cta.text':'Schreiben Sie uns auf Telegram oder WhatsApp - wir melden uns noch am selben Tag für Ihre erste Beratung.',
@@ -1338,6 +1466,27 @@ document.querySelectorAll('[data-slider]').forEach(slider=>{
     });
   }, { root: track, threshold: 0.6 });
   slides.forEach(slide=> slideObserver.observe(slide));
+});
+
+/* portfolio overview category card sliders */
+document.querySelectorAll('[data-cat-slider]').forEach(slider=>{
+  const track = slider.querySelector('.category-slider-track');
+  const wrap = slider.closest('.reveal');
+  const prevBtn = wrap.querySelector('[data-cat-prev]');
+  const nextBtn = wrap.querySelector('[data-cat-next]');
+
+  const step = ()=> track.querySelector('.category-card').getBoundingClientRect().width + 20;
+
+  const updateButtons = ()=>{
+    const maxScroll = track.scrollWidth - track.clientWidth;
+    prevBtn.disabled = track.scrollLeft <= 4;
+    nextBtn.disabled = track.scrollLeft >= maxScroll - 4;
+  };
+
+  prevBtn.addEventListener('click', ()=> track.scrollBy({ left: -step(), behavior: 'smooth' }));
+  nextBtn.addEventListener('click', ()=> track.scrollBy({ left: step(), behavior: 'smooth' }));
+  track.addEventListener('scroll', updateButtons, { passive: true });
+  updateButtons();
 });
 </script>
 
