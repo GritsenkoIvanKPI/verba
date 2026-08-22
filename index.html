@@ -157,6 +157,23 @@
   }
   .gold-frame-label{ color: #c79a4f; font-weight: 600; letter-spacing: 0.22em; text-transform: uppercase; font-size: 0.8rem; opacity: 0.8; }
 
+  /* animated gold-foil shimmer for the hero wordmark */
+  .gold-shimmer{
+    background: linear-gradient(100deg, #8a6a24 20%, #c79a4f 38%, #fff3d6 50%, #c79a4f 62%, #8a6a24 80%);
+    background-size: 250% 100%;
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+    animation: gold-shimmer 6s linear infinite;
+  }
+  @keyframes gold-shimmer{
+    0%{ background-position: 200% 0; }
+    100%{ background-position: -200% 0; }
+  }
+  @media (prefers-reduced-motion: reduce){
+    .gold-shimmer{ animation: none; background-position: 50% 0; }
+  }
+
   .img-treat{ position: relative; overflow: hidden; }
   .img-treat img{ transition: transform 1.1s var(--ease-spring); }
   .img-treat:hover img{ transform: scale(1.05); }
@@ -417,7 +434,7 @@
     <div class="grid grid-cols-1 lg:grid-cols-12 gap-10 items-end">
       <div class="lg:col-span-8 reveal">
         <p class="font-display tracking-label uppercase text-sky text-xl md:text-2xl font-bold mb-6 drop-shadow-[0_2px_10px_rgba(0,0,0,0.7)]" data-i18n="hero.eyebrow">Авторська майстерня</p>
-        <h1 class="font-display text-[20vw] leading-[0.95] tracking-[-0.02em] sm:text-9xl md:text-9xl lg:text-[9rem] xl:text-[11rem] bg-gradient-to-b from-goldlight via-gold to-butterdeep bg-clip-text text-transparent" data-i18n-html="hero.headline">VERBA</h1>
+        <h1 class="font-display text-[20vw] leading-[0.95] tracking-[-0.02em] sm:text-9xl md:text-9xl lg:text-[9rem] xl:text-[11rem] gold-shimmer" data-i18n-html="hero.headline">VERBA</h1>
         <p class="mt-7 max-w-xl font-display text-xl md:text-2xl text-cream leading-[1.4]" data-i18n="hero.subtitle1">Індивідуальне пошиття та вечірнє вбрання високого рівня</p>
         <p class="mt-4 max-w-xl text-lg md:text-xl text-cream leading-[1.7]" data-i18n="hero.subtitle2">Створення вишуканого одягу за персональними лекалами та ідеальною посадкою</p>
         <div class="mt-9 flex flex-wrap items-center gap-4">
