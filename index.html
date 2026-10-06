@@ -443,6 +443,10 @@
             <span class="lang-checkbox"></span>
             <span class="lang-flag" aria-label="Deutsch" role="img"><svg viewBox="0 0 20 14" width="100%" height="100%" preserveAspectRatio="none"><rect width="20" height="4.67" fill="#000"/><rect width="20" height="4.67" y="4.67" fill="#DD0000"/><rect width="20" height="4.67" y="9.33" fill="#FFCE00"/></svg></span>
           </div>
+          <div class="lang-option" data-lang-option="ru" role="option" aria-selected="false">
+            <span class="lang-checkbox"></span>
+            <span class="lang-flag" aria-label="Русский" role="img"><svg viewBox="0 0 20 14" width="100%" height="100%" preserveAspectRatio="none"><rect width="20" height="4.67" fill="#fff"/><rect width="20" height="4.67" y="4.67" fill="#0039A6"/><rect width="20" height="4.67" y="9.33" fill="#D52B1E"/></svg></span>
+          </div>
         </div>
       </div>
       <a href="#feedback" class="btn-pill btn-primary hidden md:inline-flex" data-i18n="nav.cta">Записатись</a>
@@ -476,6 +480,8 @@
     <button class="lang-btn" data-lang-btn="en">EN</button>
     <span class="opacity-30">/</span>
     <button class="lang-btn" data-lang-btn="de">DE</button>
+    <span class="opacity-30">/</span>
+    <button class="lang-btn" data-lang-btn="ru">RU</button>
   </div>
 </div>
 
@@ -1248,6 +1254,75 @@ const I18N = {
     'contact.location.label':'Reichweite','contact.location.value':'Weltweit',
     'footer.tagline':'Maßschneiderei seit 2003. Wir arbeiten weltweit.',
     'footer.nav':'Navigation','footer.social':'Soziales','footer.copyright':'© VERBA. Alle Rechte vorbehalten.','footer.credit':'Webdesign & Entwicklung',
+  },
+  ru: {
+    'nav.services':'Услуги','nav.portfolio':'Портфолио','nav.about':'О нас','nav.process':'Процесс',
+    'nav.testimonials':'Отзывы','nav.faq':'FAQ','nav.contact':'Контакты','nav.cta':'Записаться',
+    'placeholder.photo':'Фото',
+    'header.tagline':'Модельер',
+    'hero.eyebrow':'Авторская мастерская',
+    'hero.headline':'VERBA',
+    'hero.subtitle2':'Создание изысканной одежды по индивидуальным меркам высокого уровня. С идеальной посадкой',
+    'hero.cta':'Записаться на консультацию','hero.cta2':'Об основательнице',
+    'hero.card.name':'Тетяна Верба','hero.card.title':'Основатель',
+    'services.eyebrow':'Услуги',
+    'services.heading':'Одежда, созданная персонально для вас - от идеи до последнего стежка',
+    'services.button':'Наши работы',
+    'services.subtitle':'Каждая деталь согласовывается с вами лично - от ткани до финальной примерки.',
+    'services.s1.title':'Женский гардероб',
+    'services.s1.desc':'Вечерние, выпускные и свадебные платья в единственном экземпляре. Классические деловые костюмы, брюки, юбки и блузы. Эксклюзивные пальто и куртки, повседневная и спортивная одежда.',
+    'services.s2.title':'Мужской гардероб',
+    'services.s2.desc':'Классические мужские костюмы. Элегантные пальто, пиджаки и брюки, пошитые по индивидуальным меркам с вниманием к каждой детали.',
+    'services.s4.title':'Коктейльное платье',
+    'services.s4.desc':'Полуофициальный наряд для вечеринок, презентаций, свадебных приёмов или торжеств в ресторане. Длина миди или до колена - изысканный баланс между роскошью вечернего платья и повседневностью.',
+    'portfolioOverview.eyebrow':'Портфолио',
+    'portfolioOverview.cat1.title':'Вечерние платья',
+    'portfolioOverview.cat1.desc':'Роскошные платья для мероприятий',
+    'portfolioOverview.cat2.title':'Коктейльные платья',
+    'portfolioOverview.cat2.desc':'Полуофициальные платья для вечеринок и праздников',
+    'portfolioOverview.cat3.title':'Свадебные платья',
+    'portfolioOverview.cat3.desc':'Платья для вашего свадебного дня',
+    'portfolioOverview.cat4.title':'Деловая одежда',
+    'portfolioOverview.cat4.desc':'<li>Платья</li><li>Костюмы</li><li>Брюки</li><li>Юбки</li>',
+    'portfolioOverview.cat5.title':'Мужской гардероб',
+    'portfolioOverview.cat5.desc':'<li>Классические мужские костюмы</li><li>Пальто, пиджаки и брюки</li>',
+    'cta.eyebrow':'Следующий шаг','cta.heading':'Готовы создать свою историю?',
+    'cta.text':'Напишите нам в Telegram или WhatsApp - и мы свяжемся с вами для первой консультации.',
+    'cta.button1':'Написать в WhatsApp','cta.button2':'Написать в Telegram',
+    'about.eyebrow':'О нас',
+    'about.portrait.name':'Тетяна Верба','about.portrait.title':'Модельер',
+    'about.heading':'Мы шьём не просто одежду - мы создаём ваши личные истории успеха.',
+    'about.body':'Основательница и главный дизайнер бренда VERBA Тетяна Верба создаёт одежду с 2003 года. Построив более чем 20-летнюю историю бренда в Украине, сегодня Тетяна развивает VERBA в Германии - индивидуальные визиты, встречи в уютной камерной мастерской или онлайн. Полный цикл: от идеи, эскиза и авторского конструирования - до кроя, примерок и безупречного пошива.',
+    'about.button':'Как мы работаем','about.stat':'лет опыта',
+    'about.military.heading':'Наш вклад в победу Украины 🇺🇦','about.military.body':'Во время войны команда VERBA шила тактическое снаряжение и военную форму для украинских защитников, сочетая профессиональное мастерство с поддержкой тех, кто защищает страну.',
+    'process.eyebrow':'Как мы работаем','process.heading':'Процесс, который гибко адаптируется под вас',
+    'process.subtitle':'Прозрачный процесс на каждом этапе - от первого шага до финального стежка.','process.cta':'Обсудить ваш проект',
+    'process.s1.title':'Консультация и концепция','process.s1.desc':'Обсуждаем фасон, ткани и детали. Вы можете прийти с собственным видением или фото - либо мы разработаем образ с нуля в соответствии с вашими пожеланиями.',
+    'process.s2.title':'Снятие мерок','process.s2.desc':'Личная встреча или онлайн-консультация, где мы даём простые и точные инструкции, как легко снять мерки самостоятельно.',
+    'process.s3.title':'Примерка и подгонка','process.s3.desc':'Для лаконичных фасонов - быстрая сверка по фото или видео. Для сложного кроя - примерка по почте с детальной фото- и видеосверкой посадки.',
+    'process.s4.title':'Готовый результат','process.s4.desc':'Вы получаете изделие с безупречной посадкой. Уровень обработки - на ваш выбор: от аккуратного классического до кутюрного, с натуральным шёлком, кружевом и персональной вышивкой.',
+    'process.note1.title':'Нужно срочно?','process.note1.text':'Возможно изготовление вне очереди, если наряд нужен к конкретному событию (с доплатой за срочность).',
+    'process.note2.title':'Не можете приехать?','process.note2.text':'Концепцию и ткани согласовываем дистанционно, а Тетяна Верба лично приезжает к вам для примерок (при условии покрытия дорожных расходов).',
+    'testimonials.eyebrow':'Отзывы','testimonials.heading':'Истории, которые вдохновляют нас продолжать',
+    'testimonials.t1.quote':'«Тетяна услышала именно то, что я хотела сказать без слов. Платье стало моей второй кожей.»','testimonials.t1.name':'Елена, клиентка',
+    'testimonials.t2.quote':'«Костюм от VERBA сидит так, будто его выточили под меня. Этот уровень чувствуется сразу.»','testimonials.t2.name':'Максим, клиент',
+    'testimonials.t3.quote':'«Это не просто пошив. Это забота, время и искренность на каждом этапе.»','testimonials.t3.name':'Юлия, клиентка',
+    'faq.eyebrow':'FAQ','faq.heading':'Вопросы, которые нам задают чаще всего',
+    'faq.q1.q':'Сколько длится изготовление одежды?','faq.q1.a':'Изготовление одной вещи может занимать от нескольких часов до нескольких недель - в зависимости от сложности. Если наряд нужен срочно, возможно изготовление вне очереди с доплатой.',
+    'faq.q2.q':'Сколько стоит индивидуальный пошив?','faq.q2.a':'Стоимость зависит от уровня внутренней обработки, сложности кроя и деталировки - поэтому каждый проект мы обсуждаем индивидуально.',
+    'faq.q3.q':'Как происходит первый контакт?','faq.q3.a':'Для скорости и удобства общения на разных языках первый контакт происходит в Telegram или WhatsApp. Вы можете сразу отправить фото, задать вопрос или передать мерки.',
+    'faq.q4.q':'Сколько примерок обычно требуется?','faq.q4.a':'Зависит от сложности фасона - от одной быстрой сверки по фото до нескольких личных или почтовых примерок для сложного кроя.',
+    'faq.q5.q':'Что делать, если я не могу приехать лично?','faq.q5.a':'Идею и ткани согласовываем дистанционно. При необходимости Тетяна Верба лично приезжает к вам для примерок и подгонки - при условии покрытия дорожных расходов.',
+    'faq.q6.q':'Какой у вас график работы?','faq.q6.a':'Приём клиентов и консультации проходят по предварительной записи.',
+    'feedback.eyebrow':'Обратная связь','feedback.heading':'Расскажите нам о своём проекте',
+    'feedback.text':'Напишите нам в WhatsApp - и Тетяна Верба лично вам ответит.',
+    'feedback.whatsapp':'Написать Тетяне Верба','feedback.hint':'Вы можете написать свой вопрос',
+    'contact.eyebrow':'Контакты','contact.heading':'Всегда на связи',
+    'contact.text':'Первый контакт происходит в Telegram или WhatsApp - отправьте фото, вопрос или мерки, и мы ответим в течение дня.',
+    'contact.telegram.label':'Telegram','contact.whatsapp.label':'WhatsApp','contact.email.label':'Email',
+    'contact.location.label':'География','contact.location.value':'По всему миру',
+    'footer.tagline':'Индивидуальный пошив с 2003 года. Работаем по всему миру.',
+    'footer.nav':'Навигация','footer.social':'Соцсети','footer.copyright':'© VERBA. Все права защищены.','footer.credit':'Дизайн и разработка сайта',
   }
 };
 
